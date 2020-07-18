@@ -9,4 +9,4 @@ https://github.com/kasshisatari/Kanade/wiki
 
 お気に入り機能、インターネットルーティング機能をご利用される場合、
 
-「PetitKara」(https://github.com/kasshisatari/PetitKara/wiki)を継続利用願います。
+「PetitKara」(https://github.com/kasshisatari/PetitKara/wiki) を継続利用願います。
