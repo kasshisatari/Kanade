@@ -1,0 +1,9 @@
+python ..\..\..\Metrics\filemetrics.py --header > fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py book.c >> fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py favorite.c >> fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py file.c >> fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py history.c >> fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py main.c >> fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py player.c >> fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py user.c >> fileMetrics.csv
+python ..\..\..\Metrics\filemetrics.py vlc.c >> fileMetrics.csv

@@ -1,0 +1,775 @@
+<!-- Copyright 2020 oscillo
+
+Permission is hereby granted, free of charge,
+to any person obtaining a copy of this software
+and associated documentation files(the "Software"),
+to deal in the Software without restriction,
+including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense,
+and / or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so,
+subject to the following conditions :
+
+The above copyright notice and this permission
+notice shall be included in all copies or substantial
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY
+OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<html>
+  <head>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+    <script src="jquery-1.11.1.min.js"></script>
+    <script src="jquery.mobile-1.4.5.min.js"></script>
+    <script src="ctrl.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body style="overscroll-behavior-y: none;">
+  <div id="languagePage" data-role="page">
+    <div data-role="header">
+      <center>
+        Kanade
+      </center>
+    </div>
+    <div data-role="content">
+      <center>
+        Choose your language:
+      </center>
+      <a id="localeEnglishButton" data-role="button" href="javascript:void(0);" onclick='setLanguage("en");'>English</a>
+      <a id="localeJapanButton" data-role="button" href="javascript:void(0);" onclick='setLanguage("jp");'>日本語</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="loginPage" data-role="page">
+    <div data-role="header">
+      <center>
+        Kanade
+      </center>
+    </div>
+    <div data-role="content">
+      <div class="ui-field-contain">
+        <span id="loginNameLabel">名前</span>:
+        <input id="userNameTextbox" type="text" value="" onchange='login();'/>
+      </div>
+      <a id="loginButton" data-icon="user" data-role="button" href="javascript:void(0)" onclick='login();'>ログイン</a>
+      <a id="adminButton" data-icon="gear" data-role="button" href="#adminPage">管理画面</a>
+      <a id="attentionButton" data-icon="info" data-role="button" href="#attentionPage" data-rel="dialog">注意事項</a>
+      <label id="ssidLabel"></label>
+      <label id="wifiPassLabel"></label>
+      <img src="ssid.png">
+      <label id="urlLabel"></label>
+      <img src="url.png">
+    </div>
+    <div data-role="footer">
+      <center>
+        Version:1.0.0
+      </center>
+    </div>
+  </div>
+
+  <div id="attentionPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        <span id="attentionTitleLabel">注意事項</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <span id="attentionLabel" style="white-space: pre-wrap"></span>
+    </div>
+    <div data-role="footer"></div>
+  </div>
+
+  <div id="adminPage" data-role="page">
+    <div data-role="header">
+      <a id="adminBackButton" data-icon="arrow-l" data-role="button" href="#loginPage">戻る</a>
+      <h1>
+        <span id="adminTitleLabel">管理画面</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <a id="refreshSongButton" data-icon="recycle" data-role="button" href="#updateSongPage" data-rel="dialog">曲情報更新</a>
+      <a id="shutdownButton" data-icon="power" data-role="button" href="#shutdownConfirmPage" data-rel="dialog">シャットダウン</a>
+      <a id="resetHistoryButton" data-icon="delete" data-role="button" href="#resetHistoryConfirmPage" data-rel="dialog">履歴初期化</a>
+      <a id="rebootButton" data-icon="refresh" data-role="button" href="#rebootConfirmPage" data-rel="dialog">再起動</a>
+      <a id="configAPButton" data-icon="location" data-role="button" href="javascript:void(0);" onclick="getAPConfig();">AP設定</a>
+      <a id="configAudioButton" data-icon="audio" data-role="button" href="javascript:void(0);" onclick="getAudioConfig();">音声設定</a>
+      <a id="configPlayModeButton" data-icon="video" data-role="button" href="javascript:void(0);" onclick="getPlayMode();">再生モード設定</a>
+    </div>
+    <div data-role="footer"></div>
+  </div>
+
+  <div id="searchPage" data-role="page">
+    <div data-position-fixed="true" data-role="panel" id="searchMenu">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="header">
+      <a href="#searchMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        <p id="userNameSearchLabel"></p>
+      </center>
+    </div>
+    <div data-role="content" id="searchPageContent">
+      <div class="ui-field-contain">
+        <label>キーワード</label>
+	<input type="text" id="searchTextbox" onchange='listFile(1);'/>
+      </div>
+      <div class="ui-field-contain">
+        <label>ソート</label>
+	<select id="sortSelect">
+          <option value="0">名前順</option>
+          <option value="1">時刻順</option>
+	</select>
+      </div>
+      <a data-icon="search" data-role="button" href="javascript:void(0)" onclick='listFile(1);'>検索</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="fileListPage" data-role="page">
+    <div data-position-fixed="true" id="fileListMenu" data-role="panel">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="header">
+      <a href="#fileListMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        <span id="fileListKeywordLabel"></span>
+	<br>
+	<span id="fileListRecordNumLabel"></span>
+      </center>
+    </div>
+    <div data-role="content">
+      <ul id="fileListView" data-role="listview">
+      </ul>
+    </div>
+    <div data-role="footer">
+      <a data-icon="arrow-l" id="fileListPrevButton" href="javascript:void(0)">前へ</a>
+      <a data-icon="arrow-r" id="fileListNextButton" href="javascript:void(0)" class="ui-btn-right">次へ</a>
+      <br>
+      <span id="fileListCRLabel"><br></span>
+      <span id="fileListLFLabel"><br><br></span>
+      <a id="fileListHeadButton" href="javascript:void(0)">1</a>
+      <a id="fileListHeadNextButton" href="javascript:void(0)">2</a>
+      <span id="fileListLeftSkipLabel">...</span>
+      <a id="fileListLeftTwoButton" href="javascript:void(0)">8</a>
+      <a id="fileListLeftOneButton" href="javascript:void(0)">9</a>
+      <span id="fileListPageIndexLabel">10</span>
+      <a id="fileListRightOneButton" href="javascript:void(0)">11</a>
+      <a id="fileListRightTwoButton" href="javascript:void(0)">12</a>
+      <span id="fileListRightSkipLabel">...</span>
+      <a id="fileListBottomPrevButton" href="javascript:void(0)">19</a>
+      <a id="fileListBottomButton" href="javascript:void(0)">20</a>
+      <br>
+      <br>
+    </div>
+  </div>
+
+  <div id="fileDetailPage" data-role="page">
+    <div data-position-fixed="true" id="fileDetailMenu" data-role="panel">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="header">
+      <a href="#fileDetailMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        <p id="userNameFileDetailLabel"></p>
+      </center>
+    </div>
+    <div data-role="content">
+      <span id="pathFileDetailLabel"></span>
+      <br>
+      <span id="sizeFileDetailLabel"></span>
+      <br>
+      <span id="timeFileDetailLabel"></span>
+      <br>
+      <span id="durationFileDetailLabel"></span>
+      <br>
+      <span id="videoFileDetailLabel"></span>
+      <br>
+      <span id="countFileDetailLabel"></span>
+      <br>
+      <video id="previewVideo" src="" width=300 controls muted controlslist="nodownload"></video>
+    </div>
+    <div data-role="footer">
+      <div data-role="navbar">
+        <ul>
+          <li><a data-icon="arrow-d" href="#addBookConfirmPage" data-rel="dialog">予約</a></li>
+          <li><a data-icon="arrow-u" href="#insertBookConfirmPage" data-rel="dialog">割り込み予約</a></li>
+          <!--<li><a href="#addFavoriteConfirmPage" data-rel="dialog">お気に入り追加</a></li>-->
+<!--
+          <li><a href="#swapBookConfirmPage" data-rel="dialog">差し替え予約</a></li>
+-->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="addBookConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      <!--<span id="dupCheckAddBookLabel">予約が重複します。</span>-->予約しますか。
+      <br>
+      コメント
+      <br>
+      <input id="commentAddBookTextbox" type="text"/>
+      <label>
+        <input id="secretAddBookCheckbox" type="checkbox">非公開</input>
+      </label>
+      <label>
+        <input id="pauseAddBookCheckbox" type="checkbox">演奏後に一時停止</input>
+      </label>
+      <select id="audioAddBookSelect">
+      </select>
+      <a data-role="button" href="javascript:void(0)" onclick="addBook();">はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="insertBookConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      <!--<span id="dupCheckInsertBookLabel">予約が重複します。</span>-->割り込み予約しますか。
+      <br>
+      コメント
+      <br>
+      <input id="commentInsertBookTextbox" type="text"/>
+      <label>
+        <input id="secretInsertBookCheckbox" type="checkbox">非公開</input>
+      </label>
+      <label>
+        <input id="pauseInsertBookCheckbox" type="checkbox">演奏後に一時停止</input>
+      </label>
+      <select id="audioInsertBookSelect">
+      </select>
+      <a data-role="button" href="javascript:void(0)" onclick="insertBook();">はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="addFavoriteConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      お気に入りに追加しますか。
+      <a data-role="button" href="javascript:void(0)" onclick='addFavorite();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="swapBookConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      <!--<span id="dupCheckSwapBookLabel">予約が重複します。</span>-->差し替え予約しますか。
+      <br>
+      コメント
+      <br>
+      <input id="commentSwapBookTextbox" type="text"/>
+      <label>
+        <input id="secretSwapBookCheckbox" type="checkbox">非公開</input>
+      </label>
+      <label>
+        <input id="pauseSwapBookCheckbox" type="checkbox">演奏後に一時停止</input>
+      </label>
+      <select id="audioSwapBookSelect">
+      </select>
+      <select id="swapBookSelect">
+      </select>
+      <a data-role="button" href="javascript:void(0)">はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="remoconPage" data-role="page">
+    <div data-position-fixed="true" id="remoconMenu" data-role="panel">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="header">
+      <a href="#remoconMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        <p id="userNameRemoconLabel"></p>
+      </center>
+    </div>
+    <div data-role="content">
+      <p id="singerNameRemoconLabel"></p>
+      <p id="commentRemoconLabel"></p>
+      <p id="pathRemoconLabel"></p>
+      <p id="durationRemoconLabel"></p>
+      <p id="playerStateLabel"></p>
+      <progress id="playSongProgress"></progress>
+      <p id="volRemoconLabel"></p>
+    </div>
+    <div data-role="footer">
+      <a id="downVolRemoconButton" href="javascript:void(0)" onclick='downVol();'>音量小</a>
+      <a id="upVolRemoconButton" href="javascript:void(0)" onclick='upVol();'>音量大</a>
+      <a id="rewindRemoconButton" href="javascript:void(0)" onclick='rew();'>早戻し</a>
+      <a id="fastForwardRemoconButton" href="javascript:void(0)" onclick='ff();'>早送り</a>
+      <a id="switchAudioRemoconButton" href="javascript:void(0)" onclick='switchAudio();'>音声切替</a>
+      <a id="pauseRemoconButton" href="javascript:void(0)" onclick='pause();'>一時停止</a>
+      <a id="stopRemoconButton" href="#stopConfirmPage" data-rel="dialog">中止</a>
+    </div>
+  </div>
+
+  <div id="playListPage" data-role="page">
+    <div data-position-fixed="true" id="playListMenu" data-role="panel">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="header">
+      <a href="#playListMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        予約一覧<br>
+	<span id="finishTimeLabel"></span><br>
+	<span id="restTimeLabel"></span><br>
+        <span id="statusPlayListLabel"></span>
+      </center>
+    </div>
+    <div data-role="content">
+      <ul id="playListview" data-role="listview">
+      </ul>
+    </div>
+    <div data-role="footer">
+      <div data-role="navbar">
+        <ul>
+          <li><a data-icon="arrow-d" href="#addBreakConfirmPage" data-rel="dialog">休憩追加</a></li>
+          <li><a data-icon="arrow-u" href="#insertBreakConfirmPage" data-rel="dialog">休憩割り込み</a></li>
+	</ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="updateSongPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        <span id="updateSongTitleLabel">確認</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <span id="updateSongAlert">ファイル情報を取り込みます。しばらく時間がかかる場合があります。よろしいでしょうか。</span>
+      <a id="updateSongYesButton" data-role="button" href="javascript:void(0)" onclick='updateSong();'>はい</a>
+      <a id="updateSongNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="bookDetailPage" data-role="page">
+    <div data-role="header">
+      <a href="#bookDetailMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        <span id="loginUserNameBookDetailLabel"></span><br>
+        予約詳細
+      </center>
+    </div>
+    <div data-position-fixed="true" id="bookDetailMenu" data-role="panel">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="content">
+      <span id="userNameBookDetailLabel"></span><br>
+      <span id="pathBookDetailLabel"></span><br>
+      <span id="durationBookDetailLabel"></span><br>
+      <span id="commentBookDetailLabel"></span>
+    </div>
+    <div data-role="footer">
+      <div data-role="navbar">
+        <ul>
+          <li><a data-icon="arrow-u" href="javascript:void(0)" onclick='moveUpBook();'>上に移動</a></li>
+          <li><a data-icon="delete" href="#deleteBookConfirmPage" data-rel="dialog">削除</a></li>
+          <li><a data-icon="arrow-d" href="javascript:void(0)" onclick='moveDownBook();'>下に移動</a></li>
+	</ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteBookConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      予約を削除します。よろしいでしょうか。
+      <a data-role="button" href="javascript:void(0)" onclick='deleteBook();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="addBreakConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      休憩を追加します。よろしいでしょうか。
+      <a data-role="button" href="javascript:void(0)" onclick='addBreak();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="insertBreakConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      休憩を先頭に追加します。よろしいでしょうか。
+      <a data-role="button" href="javascript:void(0)" onclick='insertBreak();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="shutdownConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        <span id="shutdownConfirmTitleLabel">確認</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <span id="shutdownConfirmAlert">シャットダウンします。よろしいでしょうか。</span>
+      <a id="shutdownConfirmYesButton" data-role="button" href="javascript:void(0)" onclick='shutdown();'>はい</a>
+      <a id="shutdownConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="rebootConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        <span id="rebootConfirmTitleLabel">確認</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <span id="rebootConfirmAlert">再起動します。よろしいでしょうか。</span>
+      <a data-role="button" href="javascript:void(0)" onclick='reboot();'><span id="rebootConfirmYesButton">はい</span></a>
+      <a data-role="button" href="/" data-rel="back"><span id="rebootConfirmNoButton">いいえ</span></a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="resetHistoryConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        <span id="resetHistoryConfirmTitleLabel">確認</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <span id="resetHistoryConfirmAlert">履歴を初期化します。よろしいでしょうか。</span>
+      <a data-role="button" href="javascript:void(0)" onclick='resetHistory();'><span id="resetHistoryConfirmYesButton">はい</span></a>
+      <a data-role="button" href="/" data-rel="back"><span id="resetHistoryConfirmNoButton">いいえ</span></a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="stopConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      動画再生を中止します。よろしいでしょうか。
+      <a data-role="button" href="javascript:void(0)" onclick='stop();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="historyListPage" data-role="page">
+    <div data-position-fixed="true" data-role="panel" id="historyListMenu">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="header">
+      <a href="#historyListMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        履歴<br>
+        <span id="historyListRecord"></span><br>
+        <span id="userNameHistoryListLabel"></span>
+      </center>
+    </div>
+    <div data-role="content">
+      <ul id="historyListview" data-role="listview">
+      </ul>
+    </div>
+    <div data-role="footer">
+      <span id="historyListCRLabel"><br></span>
+      <a data-icon="arrow-l" id="historyListPrevButton" href="javascript:void(0)">前へ</a>
+      <a data-icon="arrow-r" id="historyListNextButton" href="javascript:void(0)" class="ui-btn-right">次へ</a>
+      <a id="historyListHeadButton" href="javascript:void(0)">1</a>
+      <a id="historyListHeadNextButton" href="javascript:void(0)">2</a>
+      <span id="historyListLeftSkipLabel">...</span>
+      <a id="historyListLeftTwoButton" href="javascript:void(0)">8</a>
+      <a id="historyListLeftOneButton" href="javascript:void(0)">9</a>
+      <span id="historyListPageIndexLabel">10</span>
+      <a id="historyListRightOneButton" href="javascript:void(0)">11</a>
+      <a id="historyListRightTwoButton" href="javascript:void(0)">12</a>
+      <span id="historyListRightSkipLabel">...</span>
+      <a id="historyListBottomPrevButton" href="javascript:void(0)">19</a>
+      <a id="historyListBottomButton" href="javascript:void(0)">20</a>
+      <span id="historyListLFLabel"><br><br></span>
+      <br>
+      <br>
+    </div>
+  </div>
+
+  <div id="historyDetailPage" data-role="page">
+    <div data-position-fixed="true" data-role="panel" id="historyDetailMenu">
+      <ul data-role="listview">
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+      </ul>
+    </div>
+    <div data-role="header">
+      <a href="#historyDetailMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
+      <center>
+        履歴詳細<br><br>
+      </center>
+    </div>
+    <div data-role="content">
+      <span id="playTimeHistoryLabel"></span><br>
+      <span id="pathHistoryLabel"></span><br>
+      <span id="userNameHistoryLabel"></span><br>
+      <input id="commentModifyTextbox" type="text" value=""/>
+    </div>
+    <div data-role="footer">
+      <div data-role="navbar">
+        <ul>
+          <li><a data-icon="edit" href="#modifyHistoryConfirmPage" data-rel="dialog">コメント変更</a></li>
+          <li><a data-icon="delete" href="#deleteHistoryConfirmPage" data-rel="dialog">削除</a></li>
+          <li><a data-icon="action" href="#downloadHistoryConfirmPage" data-rel="dialog">CSV</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteHistoryConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      履歴を削除しますか。
+      <a data-role="button" href="javascript:void(0)" onclick='deleteHistory();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="modifyHistoryConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      この履歴のコメントを修正しますか。
+      <a data-role="button" href="javascript:void(0)" onclick='modifyHistory();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="downloadHistoryConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      この履歴より後の履歴を一覧化して取得しますか。
+      <a data-role="button" href="javascript:void(0)" onclick='downloadHistory();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="aPConfigPage" data-role="page">
+    <div data-role="header">
+      <a id="aPConfigBackButton" data-icon="arrow-l" data-role="button" href="#adminPage">戻る</a>
+      <h1>
+        <span id="aPConfigTitleLabel">AP設定</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <div class="ui-field-contain">
+        <fieldset data-role="controlgroup">
+        <input type="radio" name="aPConfigRadio" id="aPConfigEnableRadio" value="1" onclick="toggleAPConfig(1);">
+        <label id="aPConfigRadioEnableLabel" for="aPConfigEnableRadio">有効</label>
+        <input type="radio" name="aPConfigRadio" id="aPConfigDisableRadio" value="0" onclick="toggleAPConfig(0);">
+    	<label id="aPConfigRadioDisableLabel" for="aPConfigDisableRadio">無効</label>
+        </fieldset>
+      </div>
+      <span id="aPConfigLabel">8文字未満は無効(要再起動)</span>
+      <div class="ui-field-contain">
+        <input id="aPConfigTextbox" type="text" value="" maxlength="63" onInput="modifyToAscii(this);"/>
+      </div>
+      <a id="configAPButton" data-icon="gear" data-role="button" href="javascript:void(0);" onclick="changeAPConfig();">設定</a>
+    </div>
+    <div data-role="footer"></div>
+  </div>
+
+  <div id="audioConfigPage" data-role="page">
+    <div data-role="header">
+      <a id="audioConfigBackButton" data-icon="arrow-l" data-role="button" href="#adminPage">戻る</a>
+      <h1>
+        <span id="audioConfigTitleLabel">音声ポート設定</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <select id="audioPlaySelect">
+      </select>
+      <a id="audioConfigChangeButton" data-icon="gear" data-role="button" href="#audioConfigConfirmPage" data-rel="dialog">設定</a>
+    </div>
+    <div data-role="footer"></div>
+  </div>
+
+  <div id="audioConfigConfirmPage" data-role="page">
+    <div data-role="header">
+      <h1>
+        確認
+      </h1>
+    </div>
+    <div data-role="content">
+      次の再生より音声出力ポートを変更しますか。<br>
+      次の動画再生から設定が有効になります。
+      <a data-role="button" href="javascript:void(0)" onclick='changeAudioConfig();'>はい</a>
+      <a data-role="button" href="/" data-rel="back">いいえ</a>
+    </div>
+    <div data-role="footer">
+    </div>
+  </div>
+
+  <div id="playModeConfigPage" data-role="page">
+    <div data-role="header">
+      <a id="playModeConfigBackButton" data-icon="arrow-l" data-role="button" href="#adminPage">戻る</a>
+      <h1>
+        <span id="playModeConfigTitleLabel">再生モード設定</span>
+      </h1>
+    </div>
+    <div data-role="content">
+      <div class="ui-field-contain">
+        <fieldset data-role="controlgroup">
+        <input type="radio" name="playModeConfigRadio" id="playModeConfigRequestRadio" value="0">
+        <label id="playModeConfigRequestLabel" for="playModeConfigRequestRadio">リクエスト再生モード</label>
+        <input type="radio" name="playModeConfigRadio" id="playModeConfigShuffleRadio" value="1">
+    	<label id="playModeConfigShuffleLabel" for="playModeConfigShuffleRadio">シャッフル再生モード</label>
+        </fieldset>
+      </div>
+      <a id="playModeConfigChangeButton" data-icon="gear" data-role="button" href="javascript:void(0);" onclick="changePlayMode();" data-rel="dialog">設定</a>
+    </div>
+    <div data-role="footer"></div>
+  </div>
+
+  </body>
+</html>
