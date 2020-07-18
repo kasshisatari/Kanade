@@ -12,6 +12,4 @@ It is an alpha version for trial usage.
 
 If you want a full functional karaoke system, use "PetitKara" (https://github.com/kasshisatari/PetitKara/wiki).
 
-お気に入り機能、インターネットルーティング機能をご利用される場合、
-
-「PetitKara」(https://github.com/kasshisatari/PetitKara/wiki) を継続利用願います。
+お気に入り機能、インターネットルーティング機能をご利用される場合、「PetitKara」(https://github.com/kasshisatari/PetitKara/wiki) を利用してください。
