@@ -27,7 +27,7 @@ If applicable, add screenshots to help explain your problem.
  - OS: [e.g. Raspberry Pi OS (32-bit) with desktop and recommended 2020-05-27 ]
  - Version [e.g. 0.5.0]
 
-**Smartphone (please complete the following information):(スマートフォン仕様)**
+**Smartphone (please complete the following information)(スマートフォン仕様):**
  - Device: [e.g. iPhone6]
  - OS: [e.g. iOS8.1]
  - Browser [e.g. stock browser, safari]
