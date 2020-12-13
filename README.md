@@ -12,4 +12,4 @@ It is an alpha version for trial usage.
 
 It is successor for PetitKara.
 
-KanadeはPetitKara(https://github.com/kasshisatari/PetitKara/wiki)の後継機です。
+KanadeはPetitKara(https://github.com/kasshisatari/PetitKara/wiki) の後継機です。
