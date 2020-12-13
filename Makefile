@@ -29,10 +29,10 @@ vlcwrapper: vlcwrapper.c
 	gcc -g vlcwrapper.c -o vlcwrapper -lvlc
 
 Kanade: main.o file.o user.o sqlite3.o book.o favorite.o history.o vlc.o player.o
-	gcc main.o file.o user.o book.o favorite.o history.o sqlite3.o vlc.o player.o -ldl -lpthread -lavformat -lavutil -lavcodec -lvlc -lsystemd -lm -o Kanade
+	gcc `pkg-config --libs gtk+-3.0` main.o file.o user.o book.o favorite.o history.o sqlite3.o vlc.o player.o -ldl -lpthread -lavformat -lavutil -lavcodec -lvlc -lsystemd -lm -o Kanade
 
 main.o: main.c
-	gcc -c -g main.c
+	gcc -c -g main.c `pkg-config --cflags gtk+-3.0`
 
 file.o: file.c
 	gcc -c -g file.c

@@ -24,9 +24,9 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-sudo chromium-browser --noerrdialogs --kiosk --incognito --no-default-browser-check --no-sandbox --test-type
+#sudo chromium-browser --noerrdialogs --kiosk --incognito --no-default-browser-check --no-sandbox --test-type
 sudo apt-get update
-sudo apt-get install -y exfat-fuse exfat-utils libavutil-dev libavcodec-dev libavformat-dev libvlc-dev qrencode hostapd dnsmasq unclutter libsystemd-dev
+sudo apt-get install -y libgtk-3-dev exfat-fuse exfat-utils libavutil-dev libavcodec-dev libavformat-dev libvlc-dev qrencode hostapd dnsmasq unclutter libsystemd-dev
 
 if test -e "/home/pi/Desktop/Kanade/wlan0"; then
   sudo cp /home/pi/Desktop/Kanade/wlan0 /etc/network/interfaces.d/wlan0

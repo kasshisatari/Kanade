@@ -46,6 +46,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <libavutil/imgutils.h>
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
+#include <gtk/gtk.h>
 #include "define.h"
 #include "user.h"
 #include "file.h"
@@ -72,6 +73,10 @@ long long playTime;
 unsigned long playDuration;
 unsigned char audioOutput = 0;
 unsigned char playMode = 0;
+GtkWidget *userLabel = NULL;
+GtkWidget *songLabel = NULL;
+GtkWidget *commentLabel = NULL;
+GtkWidget *pauseLabel = NULL;
 
 void
 CopyFileName(
@@ -1075,6 +1080,76 @@ ResponsePlayList(
   SendText(conn, header, strlen(header));
   SendText(conn, "\r\n", 2);
   SendText(conn, sendBuf, strlen(sendBuf));
+}
+
+void
+GuiPlayList(
+)
+{
+  unsigned long bookIdList[PAGERECORDS];
+  unsigned short userIdList[PAGERECORDS];
+  unsigned char pathList[PAGERECORDS][PATH_LENGTH_MAX];
+  unsigned char commentList[PAGERECORDS][COMMENT_LENGTH_MAX];
+  unsigned long durationList[PAGERECORDS];
+  unsigned long record = 0;
+  unsigned char sendBuf[1024 * 64] = { 0 };
+  unsigned char header[32] = { 0 };
+  unsigned char userName[USER_LENGTH_MAX] = { 0 };
+  unsigned char userNameListLabel[PAGERECORDS * USER_LENGTH_MAX] = { 0 };
+  unsigned char pathListLabel[PAGERECORDS * PATH_LENGTH_MAX] = { 0 };
+  unsigned char commentListLabel[PAGERECORDS * COMMENT_LENGTH_MAX] = { 0 };
+  unsigned char *songName = NULL;
+  unsigned char *songCursor = NULL;
+  unsigned char pauseStr[128] = { 0 };
+
+  LockBook();
+  record = GetBookList(bookIdList, userIdList, (char*)pathList, (char*)commentList, durationList);
+  UnlockBook();
+
+  sprintf(userNameListLabel, "<span bgcolor=\"#6495ED\" size=\"xx-large\">");
+  sprintf(pathListLabel, "<span bgcolor=\"#FAF0E6\" size=\"xx-large\">");
+  sprintf(commentListLabel, "<span bgcolor=\"#FFE4E1\" size=\"xx-large\">");
+  LockUser();
+  for (int i=0; i<record; ++i)
+  {
+    if (0 == userIdList[i])
+    {
+      *userName = 0;
+    }
+    else
+    {
+      GetUserName(userIdList[i], userName);
+    }
+    sprintf(&(userNameListLabel[strlen(userNameListLabel)]), "%s\n", userName);
+    songCursor = pathList[i];
+    songName = songCursor;
+    while (0 != *songCursor)
+    {
+      if ('/' == *songCursor)
+      {
+        songName = songCursor + 1;
+      }
+      songCursor++;
+    }
+    sprintf(&(pathListLabel[strlen(pathListLabel)]), "%s\n", songName);
+    sprintf(&(commentListLabel[strlen(commentListLabel)]), "%s\n", commentList[i]);
+  }
+  UnlockUser();
+  sprintf(&(userNameListLabel[strlen(userNameListLabel)]), "</span>");
+  sprintf(&(pathListLabel[strlen(pathListLabel)]), "</span>");
+  sprintf(&(commentListLabel[strlen(commentListLabel)]), "</span>");
+  if ((2 == playerState) || (3 == playerState) || (5 == playerState))
+  {
+    sprintf(pauseStr, "<span bgcolor=\"#FFFFFF\" size=\"xx-large\">Pause</span>");
+  }
+  else
+  {
+    *pauseStr = 0;
+  }
+  gtk_label_set_markup(GTK_LABEL(songLabel), pathListLabel);
+  gtk_label_set_markup(GTK_LABEL(userLabel), userNameListLabel);
+  gtk_label_set_markup(GTK_LABEL(commentLabel), commentListLabel);
+  gtk_label_set_markup(GTK_LABEL(pauseLabel), pauseStr);
 }
 
 void
@@ -2791,7 +2866,10 @@ PlayThread(
     {
       if (0 == IsPlayingVideo())
       {
-        playerState = 0;
+        if ((1 == playerState) || (2 == playerState) || (4 == playerState) || (5 == playerState))
+        {
+          playerState = 0;
+        }
 	StopVideo();
       }
       else
@@ -2803,6 +2881,107 @@ PlayThread(
     usleep(500000);
   }
 }
+
+gboolean
+timer_handler(
+  void
+)
+{
+  GuiPlayList();
+}
+
+void*
+GuiThread(
+  void *p
+)
+{
+  GtkWidget *window = NULL;
+  GtkWidget *vbox = NULL;
+  GtkWidget *listTextBox = NULL;
+  GtkWidget *hTextBox = NULL;
+  GtkWidget *hImageBox = NULL;
+  GtkWidget *wifiLabel = NULL;
+  GtkWidget *urlLabel = NULL;
+  GtkWidget *wifiImage = NULL;
+  GtkWidget *urlImage = NULL;
+  GtkCssProvider *provider = NULL;
+  GtkStyleContext *context = NULL;
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_container_set_border_width(GTK_CONTAINER(window), 10);
+  vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+  listTextBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+  hTextBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+  hImageBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+  songLabel = gtk_label_new(NULL);
+  userLabel = gtk_label_new(NULL);
+  pauseLabel = gtk_label_new(NULL);
+  commentLabel = gtk_label_new(NULL);
+  provider = gtk_css_provider_new();
+  context = gtk_widget_get_style_context(window);
+  gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider),
+  GTK_STYLE_PROVIDER_PRIORITY_USER);
+  gtk_widget_set_name(window, "window");
+  gtk_css_provider_load_from_data(provider,
+    "window {\n"
+    " background-color: white;\n"
+    "}\n",
+    -1, NULL);
+  g_object_unref(provider);
+
+  char fileBuf[256];
+  char wifiLabelStr[256];
+  char urlLabelStr[256];
+  char pass[256];
+  FILE *file = NULL;
+  file = fopen("ip.txt", "r");
+  fgets(fileBuf, 256, file);
+  fclose(file);
+  fileBuf[strlen(fileBuf)-1] = 0;
+  sprintf(urlLabelStr, "<span bgcolor=\"#FFFFFF\" size=\"xx-large\">Second, go to the following URL.\nhttp://%s:50000/</span>", fileBuf);
+  file = fopen("AccessPointSSID.txt", "r");
+  fgets(fileBuf, 256, file);
+  fileBuf[strlen(fileBuf)-1] = 0;
+  fclose(file);
+  file = fopen("AccessPointPass.txt", "r");
+  char *result = fgets(pass, 256, file);
+  if (NULL == result)
+  {
+    *pass = 0;
+  }
+  else
+  {
+    pass[strlen(pass)-1] = 0;
+  }
+  fclose(file);
+  sprintf(wifiLabelStr, "<span bgcolor=\"#FFFFFF\" size=\"xx-large\">First, connect the following Wi-Fi.\nSSID:%s\n", fileBuf);
+  sprintf(&wifiLabelStr[strlen(wifiLabelStr)], "PASS:%s</span>", pass);
+
+  wifiLabel = gtk_label_new(NULL);
+  gtk_label_set_markup(GTK_LABEL(wifiLabel), wifiLabelStr);
+  urlLabel = gtk_label_new(NULL);
+  gtk_label_set_markup(GTK_LABEL(urlLabel), urlLabelStr);
+  wifiImage = gtk_image_new_from_file("ssid.png");
+  urlImage = gtk_image_new_from_file("url.png");
+  gtk_container_add(GTK_CONTAINER(window), vbox);
+  gtk_box_pack_start(GTK_BOX(vbox), pauseLabel, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), listTextBox, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hTextBox, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hImageBox, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(listTextBox), userLabel, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(listTextBox), songLabel, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(listTextBox), commentLabel, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(hTextBox), wifiLabel, 0, 0, 0);
+  gtk_box_pack_end(GTK_BOX(hTextBox), urlLabel, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(hImageBox), wifiImage, 0, 0, 0);
+  gtk_box_pack_end(GTK_BOX(hImageBox), urlImage, 0, 0, 0);
+  gtk_widget_realize(window);
+  gtk_window_fullscreen((GtkWindow*)window);
+  g_signal_connect(window, "destroy", gtk_main_quit, NULL);
+  gtk_widget_show_all(window);
+  g_timeout_add(100, (GSourceFunc)timer_handler, window);
+  gtk_main();
+}
+
 
 int main(
   int argc,
@@ -2895,7 +3074,13 @@ int main(
     system("qrencode -r QRCodeAccessPointWithPass.txt -d 400 -l H -s 7 -o ssid.png");
   }
   system("qrencode -r url.txt -d 400 -l H -s 7 -o url.png");
-  system("chromium-browser --noerrdialogs --kiosk --incognito --no-default-browser-check --no-sandbox --test-type http://localhost:50000/view.html 2> /dev/null  > /dev/null &");
+
+  pthread_t guiThread;
+  gtk_init(&argc, &argv);
+  pthread_create(&guiThread, NULL, GuiThread, NULL);
+  pthread_detach(guiThread);
+
+  //system("chromium-browser --noerrdialogs --kiosk --incognito --no-default-browser-check --no-sandbox --test-type http://localhost:50000/view.html 2> /dev/null  > /dev/null &");
 
   for(;;)
   {
