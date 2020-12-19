@@ -2890,6 +2890,15 @@ timer_handler(
   GuiPlayList();
 }
 
+void
+Exit(
+  void
+)
+{
+  exit(0);
+}
+
+
 void*
 GuiThread(
   void *p
@@ -2897,6 +2906,7 @@ GuiThread(
 {
   GtkWidget *window = NULL;
   GtkWidget *vbox = NULL;
+  GtkWidget *topBox = NULL;
   GtkWidget *listTextBox = NULL;
   GtkWidget *hTextBox = NULL;
   GtkWidget *hImageBox = NULL;
@@ -2904,11 +2914,14 @@ GuiThread(
   GtkWidget *urlLabel = NULL;
   GtkWidget *wifiImage = NULL;
   GtkWidget *urlImage = NULL;
+  GtkWidget *quitButton = NULL;
   GtkCssProvider *provider = NULL;
   GtkStyleContext *context = NULL;
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  quitButton = gtk_button_new_with_label("X");
   gtk_container_set_border_width(GTK_CONTAINER(window), 10);
   vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+  topBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   listTextBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   hTextBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   hImageBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
@@ -2963,10 +2976,12 @@ GuiThread(
   wifiImage = gtk_image_new_from_file("ssid.png");
   urlImage = gtk_image_new_from_file("url.png");
   gtk_container_add(GTK_CONTAINER(window), vbox);
-  gtk_box_pack_start(GTK_BOX(vbox), pauseLabel, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), topBox, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(vbox), listTextBox, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hTextBox, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hImageBox, 0, 0, 0);
+  gtk_box_pack_start(GTK_BOX(topBox), pauseLabel, 0, 0, 0);
+  gtk_box_pack_end(GTK_BOX(topBox), quitButton, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(listTextBox), userLabel, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(listTextBox), songLabel, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(listTextBox), commentLabel, 0, 0, 0);
@@ -2977,6 +2992,7 @@ GuiThread(
   gtk_widget_realize(window);
   gtk_window_fullscreen((GtkWindow*)window);
   g_signal_connect(window, "destroy", gtk_main_quit, NULL);
+  g_signal_connect_swapped(GTK_BUTTON(quitButton), "clicked", Exit, window);
   gtk_widget_show_all(window);
   g_timeout_add(100, (GSourceFunc)timer_handler, window);
   gtk_main();

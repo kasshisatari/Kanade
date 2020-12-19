@@ -172,4 +172,6 @@ sudo rm -fr /var/swap
 cd /home/pi/Desktop/Kanade
 make
 
+sudo cp /home/pi/Desktop/Kanade/Kanade.desktop /usr/share/applications
+
 sudo reboot

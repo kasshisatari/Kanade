@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Kanade
+Comment=Karaoke
+Exec=sudo /home/pi/Desktop/Kanade/Kanade
+Path=/home/pi/Desktop/Kanade
+Categories=AudioVideo;Player;Recorder;
+Icon=/home/pi/Desktop/Kanade/Kanade.png
+Terminal=false
