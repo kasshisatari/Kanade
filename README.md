@@ -11,7 +11,7 @@ https://github.com/kasshisatari/Kanade/wiki
 
 It is an alpha version for trial usage.
 
-2020/12/13現在、Kanadeはお試し用のα版です。
+2020/12/19現在、Kanadeはお試し用のα版です。
 
 It is successor for PetitKara.
 
