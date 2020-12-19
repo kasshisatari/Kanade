@@ -1,4 +1,7 @@
-# Kanade
+Kanade
+==============
+
+![Kanade](Kanade.png "Kanade")
 
 "Kanade" is a karaoke system in Raspberry Pi for lyric videos.
 
