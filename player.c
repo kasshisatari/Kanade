@@ -27,6 +27,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "define.h"
 #include "vlc.h"
+#include "omxplayer.h"
 #include <pthread.h>
 #include <string.h>
 #include <libavcodec/avcodec.h>
@@ -84,7 +85,14 @@ GetPosition(
   void
 )
 {
-  return VLCGetPosition();
+  if (0 == player)
+  {
+    return OMXGetPosition();
+  }
+  else
+  {
+    return VLCGetPosition();
+  }
 }
 
 void
@@ -92,7 +100,14 @@ FadeoutVolume(
   void
 )
 {
-  VLCFadeoutVolume();
+  if (0 == player)
+  {
+    OMXFadeoutVolume();
+  }
+  else
+  {
+    VLCFadeoutVolume();
+  }
 }
 
 void
@@ -100,7 +115,14 @@ StopVideo(
   void
 )
 {
-  VLCStopVideo();
+  if (0 == player)
+  {
+    OMXStopVideo();
+  }
+  else
+  {
+    VLCStopVideo();
+  }
 }
 
 void
@@ -108,7 +130,14 @@ PauseVideo(
   void
 )
 {
-  VLCPauseVideo();
+  if (0 == player)
+  {
+    OMXPauseVideo();
+  }
+  else
+  {
+    VLCPauseVideo();
+  }
 }
 
 void
@@ -116,7 +145,14 @@ FFVideo(
   void
 )
 {
-  VLCFFVideo();
+  if (0 == player)
+  {
+    OMXFFVideo();
+  }
+  else
+  {
+    VLCFFVideo();
+  }
 }
 
 void
@@ -124,7 +160,14 @@ RWVideo(
   void
 )
 {
-  VLCRWVideo();
+  if (0 == player)
+  {
+    OMXRWVideo();
+  }
+  else
+  {
+    VLCRWVideo();
+  }
 }
 
 void
@@ -132,7 +175,14 @@ DownVolume(
   void
 )
 {
-  VLCDownVolume();
+  if (0 == player)
+  {
+    OMXDownVolume();
+  }
+  else
+  {
+    VLCDownVolume();
+  }
 }
 
 void
@@ -140,7 +190,14 @@ UpVolume(
   void
 )
 {
-  VLCUpVolume();
+  if (0 == player)
+  {
+    OMXUpVolume();
+  }
+  else
+  {
+    VLCUpVolume();
+  }
 }
 
 void
@@ -148,7 +205,14 @@ ChangeAudioTrack(
   void
 )
 {
-  VLCChangeAudioTrack();
+  if (0 == player)
+  {
+    OMXChangeAudioTrack();
+  }
+  else
+  {
+    VLCChangeAudioTrack();
+  }
 }
 
 void
@@ -158,6 +222,7 @@ InitPlayer(
 )
 {
   pthread_mutex_init(&playerLock, 0);
+  OMXInitPlayer(audioOutput, &vol, time);
   VLCInitPlayer(audioOutput, &vol, time);
 }
 
@@ -215,8 +280,21 @@ OpenVideo(
     }
   }
   avformat_close_input(&formatContext);
+#if 1 // Disable OMXPlayer
+  if (27 == codecid && width <= 1920 && height <= 1080)
+  {
+    player = 0;
+    OMXOpenVideo(path, audioTrack, audioTrackCount);
+  }
+  else
+  {
+    player = 1;
+    VLCOpenVideo(path, audioTrack);
+  }
+#else
   player = 1;
   VLCOpenVideo(path, audioTrack);
+#endif
 }
 
 unsigned char
@@ -224,5 +302,12 @@ IsPlayingVideo(
   void
 )
 { 
-  return VLCIsPlayingVideo();
+  if (0 == player)
+  {
+    return OMXIsPlayingVideo();
+  }
+  else
+  {
+    return VLCIsPlayingVideo();
+  }
 }

@@ -77,6 +77,14 @@ GtkWidget *userLabel = NULL;
 GtkWidget *songLabel = NULL;
 GtkWidget *commentLabel = NULL;
 GtkWidget *pauseLabel = NULL;
+int sock = 0;
+typedef struct tagSockList
+{
+  int sock;
+  struct tagSockList *next;
+}SockList;
+SockList *sockList = NULL;
+int sockNum = 0;
 
 void
 CopyFileName(
@@ -2891,11 +2899,38 @@ timer_handler(
 }
 
 void
+abrt_handler(
+  int sig
+)
+{
+  if (-1 == shutdown(sock, SHUT_RDWR))
+  {
+    fprintf(stderr, "shutdown server socket: %d\n", errno);
+  }
+  if (-1 == close(sock))
+  {
+    fprintf(stderr, "close server socket: %d\n", errno);
+  }
+  for(SockList *p=sockList;NULL != p;p = p->next)
+  {
+    if (-1 == shutdown(p->sock, SHUT_RDWR))
+    {
+      fprintf(stderr, "shutdown http socket: %d\n", errno);
+    }
+    if (-1 == close(p->sock))
+    {
+      fprintf(stderr, "close http socket: %d\n", errno);
+    }
+  }
+  exit(0);
+}
+
+void
 Exit(
   void
 )
 {
-  exit(0);
+  abort();
 }
 
 
@@ -2915,6 +2950,7 @@ GuiThread(
   GtkWidget *wifiImage = NULL;
   GtkWidget *urlImage = NULL;
   GtkWidget *quitButton = NULL;
+  GtkWidget *kanadeImage = NULL;
   GtkCssProvider *provider = NULL;
   GtkStyleContext *context = NULL;
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -2975,11 +3011,13 @@ GuiThread(
   gtk_label_set_markup(GTK_LABEL(urlLabel), urlLabelStr);
   wifiImage = gtk_image_new_from_file("ssid.png");
   urlImage = gtk_image_new_from_file("url.png");
+  kanadeImage = gtk_image_new_from_file("Kanade.png");
   gtk_container_add(GTK_CONTAINER(window), vbox);
   gtk_box_pack_start(GTK_BOX(vbox), topBox, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(vbox), listTextBox, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hTextBox, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hImageBox, 0, 0, 0);
+  gtk_box_pack_end(GTK_BOX(vbox), kanadeImage, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(topBox), pauseLabel, 0, 0, 0);
   gtk_box_pack_end(GTK_BOX(topBox), quitButton, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(listTextBox), userLabel, 0, 0, 0);
@@ -2999,14 +3037,14 @@ GuiThread(
 }
 
 
-int main(
+int 
+main(
   int argc,
   char **argv
 )
 {
   struct addrinfo hints = { 0 };
   struct addrinfo *res = NULL;
-  int sock = 0;
   struct sockaddr_storage addr = { 0 };
   socklen_t addrlen = sizeof(addr);
   int conn = 0;
@@ -3020,6 +3058,7 @@ int main(
   char *result = NULL;
 
   signal(SIGPIPE, SIG_IGN);
+  signal(SIGABRT, abrt_handler);
 
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
@@ -3101,6 +3140,24 @@ int main(
   for(;;)
   {
     conn = accept(sock, (struct sockaddr*)&addr, &addrlen);
+    if (NULL == sockList)
+    {
+      sockList = malloc(sizeof(SockList));
+      sockList->sock = conn;
+      sockList->next = NULL;
+    }
+    else
+    {
+      SockList *p = sockList;
+      while(p->next != NULL)
+      {
+        p = p->next;
+      }
+      p->next = malloc(sizeof(SockList));
+      p = p->next;
+      p->sock = conn;
+      p->next = NULL;
+    }
     pthread_t thread;
     pthread_create(&thread, NULL, HttpThread, (void*)conn);
     pthread_detach(thread);

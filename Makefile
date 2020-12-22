@@ -28,8 +28,8 @@ all: Kanade vlcwrapper
 vlcwrapper: vlcwrapper.c
 	gcc -g vlcwrapper.c -o vlcwrapper -lvlc
 
-Kanade: main.o file.o user.o sqlite3.o book.o favorite.o history.o vlc.o player.o
-	gcc `pkg-config --libs gtk+-3.0` main.o file.o user.o book.o favorite.o history.o sqlite3.o vlc.o player.o -ldl -lpthread -lavformat -lavutil -lavcodec -lvlc -lsystemd -lm -o Kanade
+Kanade: main.o file.o user.o sqlite3.o book.o favorite.o history.o vlc.o player.o omxplayer.o
+	gcc `pkg-config --libs gtk+-3.0` main.o file.o user.o book.o favorite.o history.o sqlite3.o omxplayer.o vlc.o player.o -ldl -lpthread -lavformat -lavutil -lavcodec -lvlc -lsystemd -lm -o Kanade
 
 main.o: main.c
 	gcc -c -g main.c `pkg-config --cflags gtk+-3.0`
@@ -57,6 +57,9 @@ vlc.o: vlc.c
 
 player.o: player.c
 	gcc -c -g player.c
+
+omxplayer.o: omxplayer.c
+	gcc -c -g omxplayer.c
 
 clean:
 	rm *.out *.o

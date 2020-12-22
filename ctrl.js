@@ -308,7 +308,7 @@ function remoconInterval()
       $("#durationRemoconLabel").hide();
       $("#playerStateLabel").text("再生中の動画はありません。");
       $("#playSongProgress").hide();
-      $("#volRemoconLabel").text("音量は" + json.vol + "dBです。");
+      $("#volRemoconLabel").text("音量は" + json.vol + "%です。");
       $("#rewindRemoconButton").hide();
       $("#fastForwardRemoconButton").hide();
       $("#switchAudioRemoconButton").hide();
@@ -349,7 +349,7 @@ function remoconInterval()
       $("#playSongProgress").prop("value", json.pos);
       $("#playSongProgress").prop("max", json.duration);
       $("#playSongProgress").show();
-      $("#volRemoconLabel").text("音量は" + json.vol + "dBです。");
+      $("#volRemoconLabel").text("音量は" + json.vol + "%です。");
       $("#rewindRemoconButton").show();
       $("#fastForwardRemoconButton").show();
       $("#switchAudioRemoconButton").show();
