@@ -11,7 +11,7 @@ https://github.com/kasshisatari/Kanade/wiki
 
 It is a beta version.
 
-2020/12/22現在、Kanadeはβ版です。
+2020/12/26現在、Kanadeはβ版です。
 
 It is successor for PetitKara.
 
