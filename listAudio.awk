@@ -23,4 +23,22 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-pactl list | awk -f listAudio.awk
+
+/^Sink /{
+  list = 1
+  split($0, ch, "#")
+  i = ch[2]
+}
+
+/alsa\.name/{
+  if (1 == list || 0 == list)
+  {
+    split($0, equal, " = ")
+    split(equal[2], name, "\"")
+    print i  name[2]
+  }
+  if (0 == list)
+  {
+    list = -1
+  }
+}

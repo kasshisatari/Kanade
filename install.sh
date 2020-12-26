@@ -160,8 +160,6 @@ sudo ed /home/pi/.config/pcmanfm/LXDE-pi/pcmanfm.conf << EOF
 wq
 EOF
 
-sudo cp /home/pi/Desktop/Kanade/asoundrc /root/.asoundrc
-
 sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
 

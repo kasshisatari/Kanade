@@ -23,4 +23,28 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-pactl list | awk -f listAudio.awk
+
+/Default Sink:/{
+  sink = substr($0, index($0, ":") + 2, length($0))
+}
+
+/^Sink /{
+  list = 1
+  split($0, ch, "#")
+  i = ch[2]
+}
+
+/^Source /{
+  list = 0
+}
+
+{
+  if (0 < index($0, "Name: ") && 1 == list)
+  {
+    split($0, name, ": ")
+    if (name[2] == sink)
+    {
+      print i
+    }
+  }
+}

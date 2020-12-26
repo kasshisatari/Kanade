@@ -24,4 +24,6 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-grep card ~/.asoundrc | uniq | sed -e 's/[^0-9]*//'
+pactl info > pactl_info.txt
+pactl list > pactl_list.txt
+cat pactl_info.txt pactl_list.txt | awk -f getAudio.awk

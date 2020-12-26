@@ -24,4 +24,4 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-sed -i -e 's/card [0-9]/card '$1'/' ~/.asoundrc
+pactl set-default-sink $1
