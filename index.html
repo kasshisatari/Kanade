@@ -60,7 +60,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div data-role="content">
       <div class="ui-field-contain">
-        <span id="loginNameLabel">名前</span>:
+        <label id="loginNameLabel">名前</label>
         <input id="userNameTextbox" type="text" value="" onchange='login();'/>
       </div>
       <a id="loginButton" data-icon="user" data-role="button" href="javascript:void(0)" onclick='login();'>ログイン</a>
@@ -74,7 +74,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div data-role="footer">
       <center>
-        Version:0.7.1
+        Version:0.7.2
       </center>
     </div>
   </div>
@@ -113,13 +113,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="searchPage" data-role="page">
     <div data-position-fixed="true" data-role="panel" id="searchMenu">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
-        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
-        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close" id="searchCloseButton">閉じる</a></li>
+        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();' id="searchBackButton">戻る</a></li>
+        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();' id="searchRemoconButton">リモコン</a></li>
+        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();' id="searchPlayListButton">予約状況</a></li>
+        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);' id="searchHistoryButton">履歴</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();' id="searchLogoutButton">ログアウト</a></li>
       </ul>
     </div>
     <div data-role="header">
@@ -130,17 +130,17 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div data-role="content" id="searchPageContent">
       <div class="ui-field-contain">
-        <label>キーワード</label>
+        <label id="searchKeywordLabel">キーワード</label>
 	<input type="text" id="searchTextbox" onchange='listFile(1);'/>
       </div>
       <div class="ui-field-contain">
-        <label>ソート</label>
+        <label id="searchSortLabel">ソート</label>
 	<select id="sortSelect">
-          <option value="0">名前順</option>
-          <option value="1">時刻順</option>
+          <option value="0" id="searchOrderByName">名前順</option>
+          <option value="1" id="searchOrderByTime">時刻順</option>
 	</select>
       </div>
-      <a data-icon="search" data-role="button" href="javascript:void(0)" onclick='listFile(1);'>検索</a>
+      <a id ="searchButton" data-icon="search" data-role="button" href="javascript:void(0)" onclick='listFile(1);'>検索</a>
     </div>
     <div data-role="footer">
     </div>
@@ -149,14 +149,14 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="fileListPage" data-role="page">
     <div data-position-fixed="true" id="fileListMenu" data-role="panel">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
-        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
-        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
-        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <li data-icon="delete"><a id="fileListCloseButton" href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a id="fileListBackButton" href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a id="fileListRemoconButton" href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a id="fileListSearchButton" href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a id="fileListPlayListButton" href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a id="fileListHistoryButton" href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a id="fileListLogoutButton" href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
       </ul>
     </div>
     <div data-role="header">
@@ -196,14 +196,14 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="fileDetailPage" data-role="page">
     <div data-position-fixed="true" id="fileDetailMenu" data-role="panel">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
-        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
-        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
-        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <li data-icon="delete"><a id="fileDetailCloseButton" href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a id="fileDetailBackButton" href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a id="fileDetailRemoconButton" href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a id="fileDetailSearchButton" href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a id="fileDetailPlayListButton" href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a id="fileDetailHistoryButton" href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a id="fileDetailLogoutButton" href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
       </ul>
     </div>
     <div data-role="header">
@@ -230,8 +230,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <div data-role="footer">
       <div data-role="navbar">
         <ul>
-          <li><a data-icon="arrow-d" href="#addBookConfirmPage" data-rel="dialog">予約</a></li>
-          <li><a data-icon="arrow-u" href="#insertBookConfirmPage" data-rel="dialog">割り込み予約</a></li>
+          <li><a id="addBookFileDetailButton" data-icon="arrow-d" href="#addBookConfirmPage" data-rel="dialog">予約</a></li>
+          <li><a id="insertBookFileDetailButton" data-icon="arrow-u" href="#insertBookConfirmPage" data-rel="dialog">割り込み予約</a></li>
           <!--<li><a href="#addFavoriteConfirmPage" data-rel="dialog">お気に入り追加</a></li>-->
 <!--
           <li><a href="#swapBookConfirmPage" data-rel="dialog">差し替え予約</a></li>
@@ -244,25 +244,23 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="addBookConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="addBookConfirmHeaderLabel">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      <!--<span id="dupCheckAddBookLabel">予約が重複します。</span>-->予約しますか。
+      <!--<span id="dupCheckAddBookLabel">予約が重複します。</span>--><span id="addBookConfirmAddLabel">予約しますか。</span>
       <br>
-      コメント
+      <span id="addBookConfirmCommentLabel">コメント</span>
       <br>
       <input id="commentAddBookTextbox" type="text"/>
-      <label>
-        <input id="secretAddBookCheckbox" type="checkbox">非公開</input>
-      </label>
-      <label>
-        <input id="pauseAddBookCheckbox" type="checkbox">演奏後に一時停止</input>
-      </label>
+      <label id="secretAddBookCheckboxLabel" for="secretAddBookCheckbox">非公開</label>
+      <input id="secretAddBookCheckbox" type="checkbox"/ name="secretAddBookCheckbox">
+      <label id="pauseAddBookCheckboxLabel" for="pauseAddBookCheckbox">演奏後に一時停止</label>
+      <input id="pauseAddBookCheckbox" type="checkbox"/ name="pauseAddBookCheckbox">
       <select id="audioAddBookSelect">
       </select>
-      <a data-role="button" href="javascript:void(0)" onclick="addBook();">はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <a id="addBookConfirmYesButton" data-role="button" href="javascript:void(0)" onclick="addBook();">はい</a>
+      <a id="addBookConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -271,25 +269,23 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="insertBookConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="insertBookConfirmHeaderLabel">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      <!--<span id="dupCheckInsertBookLabel">予約が重複します。</span>-->割り込み予約しますか。
+      <!--<span id="dupCheckInsertBookLabel">予約が重複します。</span>--><span id="insertBookConfirmInsertLabel">割り込み予約しますか。</span>
       <br>
-      コメント
+      <span id="insertBookConfirmCommentLabel">コメント</span>
       <br>
       <input id="commentInsertBookTextbox" type="text"/>
-      <label>
-        <input id="secretInsertBookCheckbox" type="checkbox">非公開</input>
-      </label>
-      <label>
-        <input id="pauseInsertBookCheckbox" type="checkbox">演奏後に一時停止</input>
-      </label>
+      <label id="secretInsertBookCheckboxLabel" for="secretInsertBookCheckbox">非公開</label>
+      <input id="secretInsertBookCheckbox" type="checkbox" name="secretInsertBookCheckbox"/>
+      <label id="pauseInsertBookCheckboxLabel" for="pauseInsertBookCheckbox">演奏後に一時停止</label>
+      <input id="pauseInsertBookCheckbox" type="checkbox" name="pauseInsertBookCheckbox"/>
       <select id="audioInsertBookSelect">
       </select>
-      <a data-role="button" href="javascript:void(0)" onclick="insertBook();">はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <a id="insertBookConfirmYesButton" data-role="button" href="javascript:void(0)" onclick="insertBook();">はい</a>
+      <a id="insertBookConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -342,13 +338,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="remoconPage" data-role="page">
     <div data-position-fixed="true" id="remoconMenu" data-role="panel">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
-        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
-        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <li data-icon="delete"><a id="remoconCloseButton" href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a id="remoconBackButton" href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="search"><a id="remoconSearchButton" href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a id="remoconPlayListButton" href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a id="remoconHistoryButton" href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a id="remoconLogoutButton" href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
       </ul>
     </div>
     <div data-role="header">
@@ -380,19 +376,19 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="playListPage" data-role="page">
     <div data-position-fixed="true" id="playListMenu" data-role="panel">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
-        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
-        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <li data-icon="delete"><a id="playListCloseButton" href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a id="playListBackButton" href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a id="playListRemoconButton" href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a id="playListSearchButton" href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="clock"><a id="playListHistoryButton" href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a id="playListLogoutButton" href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
       </ul>
     </div>
     <div data-role="header">
       <a href="#playListMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
       <center>
-        予約一覧<br>
+        <span id="playListHeaderLabel">予約一覧</span><br>
 	<span id="finishTimeLabel"></span><br>
 	<span id="restTimeLabel"></span><br>
         <span id="statusPlayListLabel"></span>
@@ -405,8 +401,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <div data-role="footer">
       <div data-role="navbar">
         <ul>
-          <li><a data-icon="arrow-d" href="#addBreakConfirmPage" data-rel="dialog">休憩追加</a></li>
-          <li><a data-icon="arrow-u" href="#insertBreakConfirmPage" data-rel="dialog">休憩割り込み</a></li>
+          <li><a id="addBreakButton" data-icon="arrow-d" href="#addBreakConfirmPage" data-rel="dialog">休憩追加</a></li>
+          <li><a id="insertBreakButton" data-icon="arrow-u" href="#insertBreakConfirmPage" data-rel="dialog">休憩割り込み</a></li>
 	</ul>
       </div>
     </div>
@@ -482,13 +478,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="addBreakConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="addBreakConfirmHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      休憩を追加します。よろしいでしょうか。
-      <a data-role="button" href="javascript:void(0)" onclick='addBreak();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="addBreakConfirmLabel">休憩を追加します。よろしいでしょうか。</span>
+      <a id="addBreakConfirmYesButton" data-role="button" href="javascript:void(0)" onclick='addBreak();'>はい</a>
+      <a id="addBreakConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -497,13 +493,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="insertBreakConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="insertBreakConfirmHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      休憩を先頭に追加します。よろしいでしょうか。
-      <a data-role="button" href="javascript:void(0)" onclick='insertBreak();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="insertBreakConfirmLabel">休憩を先頭に追加します。よろしいでしょうか。</span>
+      <a id="insertBreakConfirmYesButton" data-role="button" href="javascript:void(0)" onclick='insertBreak();'>はい</a>
+      <a id="insertBreakConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -557,13 +553,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="stopConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="stopConfirmHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      動画再生を中止します。よろしいでしょうか。
-      <a data-role="button" href="javascript:void(0)" onclick='stop();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="stopConfirmMessage">動画再生を中止します。よろしいでしょうか。</span>
+      <a id="stopConfirmYesButton" data-role="button" href="javascript:void(0)" onclick='stop();'>はい</a>
+      <a id="stopConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -572,19 +568,19 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="historyListPage" data-role="page">
     <div data-position-fixed="true" data-role="panel" id="historyListMenu">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
-        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
-        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="delete"><a id="historyListCloseButton" href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a id="historyListBackButton" href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a id="historyListRemoconButton" href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a id="historyListSearchButton" href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a id="historyListPlayListButton" href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a id="historyListLogoutButton" href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
       </ul>
     </div>
     <div data-role="header">
       <a href="#historyListMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
       <center>
-        履歴<br>
+        <span id="historyListHeader">履歴</span><br>
         <span id="historyListRecord"></span><br>
         <span id="userNameHistoryListLabel"></span>
       </center>
@@ -595,8 +591,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div data-role="footer">
       <span id="historyListCRLabel"><br></span>
-      <a data-icon="arrow-l" id="historyListPrevButton" href="javascript:void(0)">前へ</a>
-      <a data-icon="arrow-r" id="historyListNextButton" href="javascript:void(0)" class="ui-btn-right">次へ</a>
+      <a id="historyListPrevButton" data-icon="arrow-l" id="historyListPrevButton" href="javascript:void(0)">前へ</a>
+      <a id="historyListNextButton" data-icon="arrow-r" id="historyListNextButton" href="javascript:void(0)" class="ui-btn-right">次へ</a>
       <a id="historyListHeadButton" href="javascript:void(0)">1</a>
       <a id="historyListHeadNextButton" href="javascript:void(0)">2</a>
       <span id="historyListLeftSkipLabel">...</span>
@@ -617,19 +613,19 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="historyDetailPage" data-role="page">
     <div data-position-fixed="true" data-role="panel" id="historyDetailMenu">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
-        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
-        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="delete"><a id="historyDetailCloseButton" href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a id="historyDetailBackButton" href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a id="historyDetailRemoconButton" href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a id="historyDetailSearchButton" href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a id="historyDetailPlayListButton" href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a id="historyDetailLogoutButton" href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
       </ul>
     </div>
     <div data-role="header">
       <a href="#historyDetailMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
       <center>
-        履歴詳細<br><br>
+        <span id="historyDetailHeader">履歴詳細</span><br><br>
       </center>
     </div>
     <div data-role="content">
@@ -641,9 +637,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <div data-role="footer">
       <div data-role="navbar">
         <ul>
-          <li><a data-icon="edit" href="#modifyHistoryConfirmPage" data-rel="dialog">コメント変更</a></li>
-          <li><a data-icon="delete" href="#deleteHistoryConfirmPage" data-rel="dialog">削除</a></li>
-          <li><a data-icon="action" href="#downloadHistoryConfirmPage" data-rel="dialog">CSV</a></li>
+          <li><a id="historyDetailCommentButton" data-icon="edit" href="#modifyHistoryConfirmPage" data-rel="dialog">コメント変更</a></li>
+          <li><a id="historyDetailDeleteButton" data-icon="delete" href="#deleteHistoryConfirmPage" data-rel="dialog">削除</a></li>
+          <li><a id="historyDetailCSVButton" data-icon="action" href="#downloadHistoryConfirmPage" data-rel="dialog">CSV</a></li>
         </ul>
       </div>
     </div>
@@ -652,13 +648,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="deleteHistoryConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="deleteHistoryHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      履歴を削除しますか。
-      <a data-role="button" href="javascript:void(0)" onclick='deleteHistory();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="deleteHistoryMessage">履歴を削除しますか。</span>
+      <a id="deleteHistoryYesButton" data-role="button" href="javascript:void(0)" onclick='deleteHistory();'>はい</a>
+      <a id="deleteHistoryNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -667,13 +663,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="modifyHistoryConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="modifyHistoryHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      この履歴のコメントを修正しますか。
-      <a data-role="button" href="javascript:void(0)" onclick='modifyHistory();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="modifyHistoryMessage">この履歴のコメントを修正しますか。</span>
+      <a id="modifyHistoryYesButton" data-role="button" href="javascript:void(0)" onclick='modifyHistory();'>はい</a>
+      <a id="modifyHistoryNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -682,13 +678,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="downloadHistoryConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="downloadHistoryHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      この履歴より後の履歴を一覧化して取得しますか。
-      <a data-role="button" href="javascript:void(0)" onclick='downloadHistory();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="downloadHistoryMessage">この履歴より後の履歴を一覧化して取得しますか。</span>
+      <a id="downloadHistoryYesButton" data-role="button" href="javascript:void(0)" onclick='downloadHistory();'>はい</a>
+      <a id="downloadHistoryNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>
@@ -705,16 +701,16 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       <div class="ui-field-contain">
         <fieldset data-role="controlgroup">
         <input type="radio" name="aPConfigRadio" id="aPConfigEnableRadio" value="1" onclick="toggleAPConfig(1);">
-        <label id="aPConfigRadioEnableLabel" for="aPConfigEnableRadio">有効</label>
+        <label id="aPConfigEnableLabel" for="aPConfigEnableRadio">有効</label>
         <input type="radio" name="aPConfigRadio" id="aPConfigDisableRadio" value="0" onclick="toggleAPConfig(0);">
-    	<label id="aPConfigRadioDisableLabel" for="aPConfigDisableRadio">無効</label>
+    	<label id="aPConfigDisableLabel" for="aPConfigDisableRadio">無効</label>
         </fieldset>
       </div>
       <span id="aPConfigLabel">8文字未満は無効(要再起動)</span>
       <div class="ui-field-contain">
         <input id="aPConfigTextbox" type="text" value="" maxlength="63" onInput="modifyToAscii(this);"/>
       </div>
-      <a id="configAPButton" data-icon="gear" data-role="button" href="javascript:void(0);" onclick="changeAPConfig();">設定</a>
+      <a id="aPConfigChangeButton" data-icon="gear" data-role="button" href="javascript:void(0);" onclick="changeAPConfig();">設定</a>
     </div>
     <div data-role="footer"></div>
   </div>
@@ -737,14 +733,14 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="audioConfigConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="audioConfigConfirmHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      次の再生より音声出力ポートを変更しますか。<br>
-      次の動画再生から設定が有効になります。
-      <a data-role="button" href="javascript:void(0)" onclick='changeAudioConfig();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="audioConfigConfirmQuestion">次の再生より音声出力ポートを変更しますか。</span><br>
+      <span id="audioConfigConfirmAttention">次の動画再生から設定が有効になります。</span>
+      <a id="audioConfigConfirmYesButton" data-role="button" href="javascript:void(0)" onclick='changeAudioConfig();'>はい</a>
+      <a id="audioConfigConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>

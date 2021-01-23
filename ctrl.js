@@ -65,7 +65,7 @@ var locale = {
     "shutdownConfirmAlert": "シャットダウンします。よろしいでしょうか。",
     "shutdownConfirmYesButton": "はい",
     "shutdownConfirmNoButton": "いいえ",
-    "configAPButton": "AP設定",
+    "configAPButton": "AccessPoint設定",
     "resetHistoryConfirmTitleLabel": "確認",
     "resetHistoryConfirmAlert": "履歴を初期化します。よろしいでしょうか。",
     "resetHistoryConfirmYesButton": "はい",
@@ -75,7 +75,155 @@ var locale = {
     "rebootConfirmYesButton": "はい",
     "rebootConfirmNoButton": "いいえ",
     "aPConfigAlert": "Wi-Fiパスワードは8文字以上を指定してください。",
-    "aPConfigRebootAlert": "再起動後に有効になります。"
+    "aPConfigRebootAlert": "再起動後に有効になります。",
+    "searchCloseButton": "閉じる",
+    "searchBackButton": "戻る",
+    "searchRemoconButton": "リモコン",
+    "searchPlayListButton": "予約状況",
+    "searchHistoryButton": "履歴",
+    "searchFavoriteButton": "お気に入り",
+    "searchLogoutButton": "ログアウト",
+    "searchKeywordLabel": "キーワード",
+    "searchSortLabel": "ソート",
+    "searchOrderByName": "名前順",
+    "searchOrderByTime": "時刻順",
+    "searchButton": "検索",
+    "fileListCloseButton": "閉じる",
+    "fileListBackButton": "戻る",
+    "fileListRemoconButton": "リモコン",
+    "fileListSearchButton": "検索",
+    "fileListPlayListButton": "予約状況",
+    "fileListHistoryButton": "履歴",
+    "fileListFavoriteButton": "お気に入り",
+    "fileListLogoutButton": "ログアウト",
+    "result": "件",
+    "fileListPrevButton": "前へ",
+    "fileListNextButton": "次へ",
+    "fileDetailCloseButton": "閉じる",
+    "fileDetailBackButton": "戻る",
+    "fileDetailRemoconButton": "リモコン",
+    "fileDetailSearchButton": "検索",
+    "fileDetailPlayListButton": "予約状況",
+    "fileDetailHistoryButton": "履歴",
+    "fileDetailFavoriteButton": "お気に入り",
+    "fileDetailLogoutButton": "ログアウト",
+    "addBookFileDetailButton": "予約",
+    "insertBookFileDetailButton": "割り込み予約",
+    "playCountUnit": "回",
+    "addBookConfirmHeaderLabel": "確認",
+    "addBookConfirmAddLabel": "予約しますか。",
+    "addBookConfirmCommentLabel": "コメント",
+    "secretAddBookCheckboxLabel": "非公開",
+    "pauseAddBookCheckboxLabel": "演奏後に一時停止",
+    "addBookConfirmYesButton": "はい",
+    "addBookConfirmNoButton": "いいえ",
+    "insertBookConfirmHeaderLabel": "確認",
+    "insertBookConfirmInsertLabel": "割り込み予約しますか。",
+    "insertBookConfirmCommentLabel": "コメント",
+    "secretInsertBookCheckboxLabel": "非公開",
+    "pauseInsertBookCheckboxLabel": "演奏後に一時停止",
+    "insertBookConfirmYesButton": "はい",
+    "insertBookConfirmNoButton": "いいえ",
+    "remoconCloseButton": "閉じる",
+    "remoconBackButton": "戻る",
+    "remoconSearchButton": "検索",
+    "remoconPlayListButton": "予約状況",
+    "remoconHistoryButton": "履歴",
+    "remoconFavoriteButton": "お気に入り",
+    "remoconLogoutButton": "ログアウト",
+    "downVolRemoconButton": "音量小",
+    "upVolRemoconButton": "音量大",
+    "rewindRemoconButton": "早戻し",
+    "fastForwardRemoconButton": "早送り",
+    "switchAudioRemoconButton": "音声切替",
+    "pauseRemoconButton": "一時停止",
+    "stopRemoconButton": "中止",
+    "resumeButton": "再開",
+    "noVideoState": "再生中の動画はありません。",
+    "playVideoState": "再生中",
+    "pauseVideoState": "一時停止中",
+    "volStartLabel": "音量：",
+    "volEndLabel": " %",
+    "playListCloseButton": "閉じる",
+    "playListBackButton": "戻る",
+    "playListRemoconButton": "リモコン",
+    "playListSearchButton": "検索",
+    "playListHistoryButton": "履歴",
+    "playListFavoriteButton": "お気に入り",
+    "playListLogoutButton": "ログアウト",
+    "playListHeaderLabel": "予約一覧",
+    "restTimeHeadLabel": "残時間：",
+    "finishTimeHeadLabel": "終了予定：",
+    "addBreakButton": "休憩追加",
+    "insertBreakButton": "休憩割り込み",
+    "addBreakConfirmHeader": "確認",
+    "addBreakConfirmLabel": "休憩を追加します。よろしいでしょうか。",
+    "addBreakConfirmYesButton": "はい",
+    "addBreakConfirmNoButton": "いいえ",
+    "insertBreakConfirmHeader": "確認",
+    "insertBreakConfirmLabel": "休憩を先頭に追加します。よろしいでしょうか。",
+    "insertBreakConfirmYesButton": "はい",
+    "insertBreakConfirmNoButton": "いいえ",
+    "historyListCloseButton": "閉じる",
+    "historyListBackButton": "戻る",
+    "historyListRemoconButton": "リモコン",
+    "historyListPlayListButton": "予約状況",
+    "historyListSearchButton": "検索",
+    "historyListFavoriteButton": "お気に入り",
+    "historyListLogoutButton": "ログアウト",
+    "historyListHeader": "履歴",
+    "historyListPrevButton": "前へ",
+    "historyListNextButton": "次へ",
+    "historyDetailCloseButton": "閉じる",
+    "historyDetailBackButton": "戻る",
+    "historyDetailRemoconButton": "リモコン",
+    "historyDetailPlayListButton": "予約状況",
+    "historyDetailSearchButton": "検索",
+    "historyDetailFavoriteButton": "お気に入り",
+    "historyDetailLogoutButton": "ログアウト",
+    "historyDetailHeader": "履歴詳細",
+    "historyDetailCommentButton": "コメント変更",
+    "historyDetailDeleteButton": "削除",
+    "historyDetailCSVButton": "CSV",
+    "modifyHistoryYesButton": "はい",
+    "modifyHistoryNoButton": "いいえ",
+    "modifyHistoryHeader": "確認",
+    "modifyHistoryMessage": "この履歴のコメントを修正しますか。",
+    "deleteHistoryHeader": "確認",
+    "deleteHistoryMessage": "履歴を削除しますか。",
+    "deleteHistoryYesButton": "はい",
+    "deleteHistoryNoButton": "いいえ",
+    "downloadHistoryHeader": "確認",
+    "downloadHistoryMessage": "この履歴より後の履歴を一覧化して取得しますか。",
+    "downloadHistoryYesButton": "はい",
+    "downloadHistoryNoButton": "いいえ",
+    "configAudioButton": "音声設定",
+    "configPlayModeButton": "再生モード設定",
+    "playModeConfigRequestLabel": "リクエスト再生モード",
+    "playModeConfigShuffleLabel": "シャッフル再生モード",
+    "playModeConfigTitleLabel": "再生モード設定",
+    "playModeConfigBackButton": "戻る",
+    "playModeConfigChangeButton": "設定",
+    "audioConfigChangeButton": "設定",
+    "audioConfigTitleLabel": "音声ポート設定",
+    "audioConfigBackButton": "戻る",
+    "audioConfigConfirmHeader": "確認",
+    "audioConfigConfirmQuestion": "次の再生より音声出力ポートを変更しますか。",
+    "audioConfigConfirmAttention": "次の動画再生から設定が有効になります。",
+    "audioConfigConfirmYesButton": "はい",
+    "audioConfigConfirmNoButton": "いいえ",
+    "aPConfigTitleLabel": "AccessPoint設定",
+    "aPConfigBackButton": "戻る",
+    "aPConfigLabel": "8文字未満は無効(要再起動)",
+    "aPConfigChangeButton": "設定",
+    "aPConfigEnableLabel": "有効",
+    "aPConfigDisableLabel": "無効",
+    "stopConfirmHeader": "確認",
+    "stopConfirmMessage": "動画再生を中止します。よろしいでしょうか。",
+    "stopConfirmYesButton": "はい",
+    "stopConfirmNoButton": "いいえ",
+    "breakLabel": "休憩",
+    "secretLabel": "非公開"
   },
   "en": {
     "loginNameLabel": "Name",
@@ -100,7 +248,7 @@ var locale = {
     "shutdownConfirmAlert": "Do you want to shutdown Kanade?",
     "shutdownConfirmYesButton": "Yes",
     "shutdownConfirmNoButton": "No",
-    "configAPButton": "Config AP",
+    "configAPButton": "Access Point",
     "resetHistoryConfirmTitleLabel": "CAUTION",
     "resetHistoryConfirmAlert": "Do you want to delete all history?",
     "resetHistoryConfirmYesButton": "Yes",
@@ -110,7 +258,155 @@ var locale = {
     "rebootConfirmYesButton": "Yes",
     "rebootConfirmNoButton": "No",
     "aPConfigAlert": "The Wi-Fi pass phrase must be more than 8 characters.",
-    "aPConfigRebootAlert": "You have to reboot for the Wi-Fi passphrase configuration."
+    "aPConfigRebootAlert": "You have to reboot for the Wi-Fi passphrase configuration.",
+    "searchCloseButton": "Close",
+    "searchBackButton": "Back",
+    "searchRemoconButton": "Remote",
+    "searchPlayListButton": "Playlist",
+    "searchHistoryButton": "History",
+    "searchFavoriteButton": "Favorite",
+    "searchLogoutButton": "Logout",
+    "searchKeywordLabel": "Keyword",
+    "searchSortLabel": "Sort",
+    "searchOrderByName": "Sorted by Name",
+    "searchOrderByTime": "Sorted by Date and Time",
+    "searchButton": "Search",
+    "fileListCloseButton": "Close",
+    "fileListBackButton": "Back",
+    "fileListRemoconButton": "Remote",
+    "fileListSearchButton": "Search",
+    "fileListPlayListButton": "Playlist",
+    "fileListHistoryButton": "History",
+    "fileListFavoriteButton": "Favorite",
+    "fileListLogoutButton": "Logout",
+    "result": " results",
+    "fileListPrevButton": "Prev",
+    "fileListNextButton": "Next",
+    "fileDetailCloseButton": "Close",
+    "fileDetailBackButton": "Back",
+    "fileDetailRemoconButton": "Remote",
+    "fileDetailSearchButton": "Search",
+    "fileDetailPlayListButton": "Playlist",
+    "fileDetailHistoryButton": "History",
+    "fileDetailFavoriteButton": "Favorite",
+    "fileDetailLogoutButton": "Logout",
+    "addBookFileDetailButton": "Add",
+    "insertBookFileDetailButton": "Insert",
+    "playCountUnit": " plays",
+    "addBookConfirmHeaderLabel": "Confirm",
+    "addBookConfirmAddLabel": "Do you add it to playlist?",
+    "addBookConfirmCommentLabel": "Comment",
+    "secretAddBookCheckboxLabel": "Secret",
+    "pauseAddBookCheckboxLabel": "Pause after playing",
+    "addBookConfirmYesButton": "Yes",
+    "addBookConfirmNoButton": "No",
+    "insertBookConfirmHeaderLabel": "Confirm",
+    "insertBookConfirmInsertLabel": "Do you insert it to playlist?",
+    "insertBookConfirmCommentLabel": "Comment",
+    "secretInsertBookCheckboxLabel": "Secret",
+    "pauseInsertBookCheckboxLabel": "Pause after playing",
+    "insertBookConfirmYesButton": "Yes",
+    "insertBookConfirmNoButton": "No",
+    "remoconCloseButton": "Close",
+    "remoconBackButton": "Back",
+    "remoconSearchButton": "Search",
+    "remoconPlayListButton": "Playlist",
+    "remoconHistoryButton": "History",
+    "remoconFavoriteButton": "Favorite",
+    "remoconLogoutButton": "Logout",
+    "downVolRemoconButton": "Vol-",
+    "upVolRemoconButton": "Vol+",
+    "rewindRemoconButton": "REW",
+    "fastForwardRemoconButton": "FF",
+    "switchAudioRemoconButton": "Track",
+    "pauseRemoconButton": "Pause",
+    "stopRemoconButton": "Stop",
+    "resumeButton": "Resume",
+    "noVideoState": "There is no video playing.",
+    "playVideoState": "Playing",
+    "pauseVideoState": "Pause",
+    "volStartLabel": "Volume: ",
+    "volEndLabel": " %",
+    "playListCloseButton": "Close",
+    "playListBackButton": "Back",
+    "playListRemoconButton": "Remote",
+    "playListSearchButton": "Search",
+    "playListHistoryButton": "History",
+    "playListFavoriteButton": "Favorite",
+    "playListLogoutButton": "Logout",
+    "playListHeaderLabel": "Playlist",
+    "restTimeHeadLabel": "Rest time：",
+    "finishTimeHeadLabel": "Scheduled end time：",
+    "addBreakButton": "Add break",
+    "insertBreakButton": "Insert break",
+    "addBreakConfirmHeader": "Confirm",
+    "addBreakConfirmLabel": "Do you add break on the tail of the playlist?",
+    "addBreakConfirmYesButton": "Yes",
+    "addBreakConfirmNoButton": "No",
+    "insertBreakConfirmHeader": "Confirm",
+    "insertBreakConfirmLabel": "Do you insert break into the top of the playlist?",
+    "insertBreakConfirmYesButton": "Yes",
+    "insertBreakConfirmNoButton": "No",
+    "historyListCloseButton": "Close",
+    "historyListBackButton": "Back",
+    "historyListRemoconButton": "Remote",
+    "historyListPlayListButton": "Playlist",
+    "historyListSearchButton": "Search",
+    "historyListFavoriteButton": "Favorite",
+    "historyListLogoutButton": "Logout",
+    "historyListHeader": "History",
+    "historyListPrevButton": "Prev",
+    "historyListNextButton": "Next",
+    "historyDetailCloseButton": "Close",
+    "historyDetailBackButton": "Back",
+    "historyDetailRemoconButton": "Remote",
+    "historyDetailPlayListButton": "Playlist",
+    "historyDetailSearchButton": "Search",
+    "historyDetailFavoriteButton": "Favorite",
+    "historyDetailLogoutButton": "Logout",
+    "historyDetailHeader": "Detail of History",
+    "historyDetailCommentButton": "Modify Comment",
+    "historyDetailDeleteButton": "Delete",
+    "historyDetailCSVButton": "CSV",
+    "modifyHistoryYesButton": "Yes",
+    "modifyHistoryNoButton": "No",
+    "modifyHistoryHeader": "Confirm",
+    "modifyHistoryMessage": "Do you modify the comment?",
+    "deleteHistoryHeader": "Confirm",
+    "deleteHistoryMessage": "Do you delete the history?",
+    "deleteHistoryYesButton": "Yes",
+    "deleteHistoryNoButton": "No",
+    "downloadHistoryHeader": "Confirm",
+    "downloadHistoryMessage": "Do you download a history list that is made by after it? ",
+    "downloadHistoryYesButton": "Yes",
+    "downloadHistoryNoButton": "No",
+    "configAudioButton": "Audio Device",
+    "configPlayModeButton": "Play Mode",
+    "playModeConfigRequestLabel": "Manual Request Play Mode",
+    "playModeConfigShuffleLabel": "Automatic Shuffle Play Mode",
+    "playModeConfigTitleLabel": "Play Mode",
+    "playModeConfigBackButton": "Back",
+    "playModeConfigChangeButton": "Config",
+    "audioConfigChangeButton": "Config",
+    "audioConfigTitleLabel": "Audio Device",
+    "audioConfigBackButton": "Back",
+    "audioConfigConfirmHeader": "Confirm",
+    "audioConfigConfirmQuestion": "Do you change audio device for use?",
+    "audioConfigConfirmAttention": "The change is enabled after the play.",
+    "audioConfigConfirmYesButton": "Yes",
+    "audioConfigConfirmNoButton": "No",
+    "aPConfigTitleLabel": "Access Point",
+    "aPConfigBackButton": "Back",
+    "aPConfigLabel": "Invalid within 8-characters(Need Reboot)",
+    "aPConfigChangeButton": "Config",
+    "aPConfigEnableLabel": "Enable",
+    "aPConfigDisableLabel": "Disable",
+    "stopConfirmHeader": "Confirm",
+    "stopConfirmMessage": "Do you stop this video?",
+    "stopConfirmYesButton": "Yes",
+    "stopConfirmNoButton": "No",
+    "breakLabel": "Break",
+    "secretLabel": "Secret"
   }
 };
 $(function()
@@ -242,15 +538,15 @@ function playListInterval()
       else if (0 == json[i].path.indexOf("Break"))
       {
         li += '<li style="white-space:pre-line;">';
-        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'休憩\',\'\',0,\'\');">';
-        li += "休憩";
+        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'' + locale[language]["breakLabel"] + '\',\'\',0,\'\');">';
+        li += locale[language]["breakLabel"];
         li += '</a>';
         li += '</li>';
       }
       else
       {
         li += '<li style="white-space:pre-line;">';
-        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'' + json[i].user + '\',\'非公開\',' + json[i].duration +',\'' + json[i].comment + '\');">';
+        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'' + json[i].user + '\',\'' + locale[language]["secretLabel"] + '\',' + json[i].duration +',\'' + json[i].comment + '\');">';
         if ("" == json[i].user)
         {
           li += "<br>";
@@ -259,7 +555,7 @@ function playListInterval()
         {
           li += json[i].user + "<br>";
         }
-        li += "非公開<br>";
+        li += locale[language]["secretLabel"] + "<br>";
         if ("" != json[i].comment)
         {
           li += json[i].comment + "<br>";
@@ -277,10 +573,10 @@ function playListInterval()
     var min = ('00' + String(Math.floor((rest % 3600) / 60))).slice(-2);
     var sec = ('00' + String(rest % 60)).slice(-2);
 
-    $("#restTimeLabel").text("残時間：" + hour + ":" + min + ":" + sec);
+    $("#restTimeLabel").text(locale[language]["restTimeHeadLabel"] + hour + ":" + min + ":" + sec);
     var dt = new Date();
     dt.setSeconds(dt.getSeconds() + rest);
-    $("#finishTimeLabel").text("終了予定：" + dt.toLocaleTimeString());
+    $("#finishTimeLabel").text(locale[language]["finishTimeHeadLabel"] + dt.toLocaleTimeString());
   });
   xhr.open("POST", window.origin);
   xhr.send("4");
@@ -306,20 +602,20 @@ function remoconInterval()
       $("#commentRemoconLabel").hide();
       $("#pathRemoconLabel").hide();
       $("#durationRemoconLabel").hide();
-      $("#playerStateLabel").text("再生中の動画はありません。");
+      $("#playerStateLabel").text(locale[language]["noVideoState"]);
       $("#playSongProgress").hide();
-      $("#volRemoconLabel").text("音量は" + json.vol + "%です。");
+      $("#volRemoconLabel").text(locale[language]["volStartLabel"] + json.vol + locale[language]["volEndLabel"]);
       $("#rewindRemoconButton").hide();
       $("#fastForwardRemoconButton").hide();
       $("#switchAudioRemoconButton").hide();
       $("#stopRemoconButton").hide();
       if (0 == json.state)
       {
-        $("#pauseRemoconButton").text("一時停止");
+        $("#pauseRemoconButton").text(locale[language]["pauseRemoconButton"]);
       }
       else if (3 == json.state)
       {
-        $("#pauseRemoconButton").text("再開");
+        $("#pauseRemoconButton").text(locale[language]["resumeButton"]);
       }
     }
     else if (1 == json.state || 2 == json.state)
@@ -340,27 +636,27 @@ function remoconInterval()
       $("#durationRemoconLabel").show();
       if (1 == json.state)
       {
-        $("#playerStateLabel").text("再生中");
+        $("#playerStateLabel").text(locale[language]["playVideoState"]);
       }
       else if (2 == json.state)
       {
-        $("#playerStateLabel").text("一時停止中");
+        $("#playerStateLabel").text(locale[language]["pauseVideoState"]);
       }
       $("#playSongProgress").prop("value", json.pos);
       $("#playSongProgress").prop("max", json.duration);
       $("#playSongProgress").show();
-      $("#volRemoconLabel").text("音量は" + json.vol + "%です。");
+      $("#volRemoconLabel").text(locale[language]["volStartLabel"] + json.vol + locale[language]["volEndLabel"]);
       $("#rewindRemoconButton").show();
       $("#fastForwardRemoconButton").show();
       $("#switchAudioRemoconButton").show();
       $("#stopRemoconButton").show();
       if (1 == json.state)
       {
-        $("#pauseRemoconButton").text("一時停止");
+        $("#pauseRemoconButton").text(locale[language]["pauseRemoconButton"]);
       }
       else if (2 == json.state)
       {
-        $("#pauseRemoconButton").text("再開");
+        $("#pauseRemoconButton").text(locale[language]["resumeButton"]);
       }
     }
   });
@@ -401,6 +697,12 @@ function setLanguage(lang)
   list = document.getElementsByTagName("a");
   applyLanguage(list);
   list = document.getElementsByTagName("span");
+  applyLanguage(list);
+  list = document.getElementsByTagName("option");
+  applyLanguage(list);
+  list = document.getElementsByTagName("label");
+  applyLanguage(list);
+  list = document.getElementsByTagName("input");
   applyLanguage(list);
   window.location.href="#loginPage";
 }
@@ -478,7 +780,7 @@ function listFile(page)
     var json = $.parseJSON(this.responseText);
     $("#fileListBottomButton").text(json.page);
     $("#fileListBottomPrevButton").text(json.page - 1);
-    $("#fileListRecordNumLabel").text(json.record + "件");
+    $("#fileListRecordNumLabel").text(json.record + locale[language]["result"]);
     if (0 == json.record)
     {
       $("#fileListNextButton").hide();
@@ -742,7 +1044,7 @@ function fileDetail(fileId)
     var sec = ('00' + String(json.duration % 60)).slice(-2);
     $("#durationFileDetailLabel").text(hour + ":" + min + ":" + sec);
     $("#videoFileDetailLabel").text(json.videoCodec + "(" + json.resolution + ")");
-    $("#countFileDetailLabel").text(json.count + "回");
+    $("#countFileDetailLabel").text(json.count + locale[language]["playCountUnit"]);
     var optItem = '';
     for (var i=0;i<json.audioTrack.length;++i)
     {
@@ -812,15 +1114,15 @@ function playList()
       else if (0 == json[i].path.indexOf("Break"))
       {
         li += '<li style="white-space:pre-line;">';
-        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'休憩\',\'\',0,\'\');">';
-        li += "休憩";
+        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'' + locale[language]["breakLabel"] + '\',\'\',0,\'\');">';
+        li += locale[language]["breakLabel"];
         li += '</a>';
         li += '</li>';
       }
       else
       {
         li += '<li style="white-space:pre-line;">';
-        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'' + json[i].user + '\',\'非公開\',' + json[i].duration +',\'' + json[i].comment + '\');">';
+        li += '<a href="javascript:void(0)" onclick="detailBook(' + json[i].bookId + ',\'' + json[i].user + '\',\'' + locale[language]["secretLabel"] + '\',' + json[i].duration +',\'' + json[i].comment + '\');">';
         if ("" == json[i].user)
         {
           li += "<br>";
@@ -829,7 +1131,7 @@ function playList()
         {
           li += json[i].user + "<br>";
         }
-        li += "非公開<br>";
+        li += locale[language]["secretLabel"] + "<br>";
         if ("" != json[i].comment)
         {
           li += json[i].comment + "<br>";
@@ -847,10 +1149,10 @@ function playList()
     var min = ('00' + String(Math.floor((rest % 3600) / 60))).slice(-2);
     var sec = ('00' + String(rest % 60)).slice(-2);
 
-    $("#restTimeLabel").text("残時間：" + hour + ":" + min + ":" + sec);
+    $("#restTimeLabel").text(locale[language]["restTimeHeadLabel"] + hour + ":" + min + ":" + sec);
     var dt = new Date();
     dt.setSeconds(dt.getSeconds() + rest);
-    $("#finishTimeLabel").text("終了予定：" + dt.toLocaleTimeString());
+    $("#finishTimeLabel").text(locale[language]["finishTimeHeadLabel"] + dt.toLocaleTimeString());
     if ("#playListPage" != window.location.href)
     {
       window.location.href="#playListPage";
@@ -865,7 +1167,7 @@ function historyList(page)
   xhr.addEventListener("load", function(){
     $("#userNameHistoryListLabel").text($("#userNameTextbox").val());
     var json = $.parseJSON(this.responseText);
-    $("#historyListRecord").text(json.record + "件");
+    $("#historyListRecord").text(json.record + locale[language]["result"]);
     historyListJson = json;
     var li = "";
     for (var i=0; i<json.histories.length; ++i)
