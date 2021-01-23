@@ -26,40 +26,40 @@
 
 all: Kanade vlcwrapper
 vlcwrapper: vlcwrapper.c
-	gcc -g vlcwrapper.c -o vlcwrapper -lvlc
+	gcc -O3 vlcwrapper.c -o vlcwrapper -lvlc
 
 Kanade: main.o file.o user.o sqlite3.o book.o favorite.o history.o vlc.o player.o omxplayer.o
-	gcc `pkg-config --libs gtk+-3.0` main.o file.o user.o book.o favorite.o history.o sqlite3.o omxplayer.o vlc.o player.o -ldl -lpthread -lavformat -lavutil -lavcodec -lvlc -lsystemd -lm -o Kanade
+	gcc -O3 `pkg-config --libs gtk+-3.0` main.o file.o user.o book.o favorite.o history.o sqlite3.o omxplayer.o vlc.o player.o -ldl -lpthread -lavformat -lavutil -lavcodec -lvlc -lsystemd -lm -o Kanade
 
 main.o: main.c
-	gcc -c -g main.c `pkg-config --cflags gtk+-3.0`
+	gcc -O3 -c main.c `pkg-config --cflags gtk+-3.0`
 
 file.o: file.c
-	gcc -c -g file.c
+	gcc -O3 -c file.c
 
 user.o: user.c
-	gcc -c -g user.c
+	gcc -O3 -c user.c
 
 book.o: book.c
-	gcc -c -g book.c
+	gcc -O3 -c book.c
 
 favorite.o: favorite.c
-	gcc -c -g favorite.c
+	gcc -O3 -c favorite.c
 
 history.o: history.c
-	gcc -c -g history.c
+	gcc -O3 -c history.c
 
 sqlite3.o: sqlite3.c
-	gcc -c sqlite3.c
+	gcc -O3 -c sqlite3.c
 
 vlc.o: vlc.c
-	gcc -c -g vlc.c
+	gcc -O3 -c vlc.c
 
 player.o: player.c
-	gcc -c -g player.c
+	gcc -O3 -c player.c
 
 omxplayer.o: omxplayer.c
-	gcc -c -g omxplayer.c
+	gcc -O3 -c omxplayer.c
 
 clean:
-	rm *.out *.o
+	rm -f *.o Kanade vlcwrapper
