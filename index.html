@@ -74,7 +74,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div data-role="footer">
       <center>
-        Version:0.7.2
+        Version:0.7.3
       </center>
     </div>
   </div>
@@ -428,19 +428,19 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       <a href="#bookDetailMenu" data-role="button" data-icon="bars" data-iconpos="notext">&nbsp;</a>
       <center>
         <span id="loginUserNameBookDetailLabel"></span><br>
-        予約詳細
+        <span id="bookDetailHeader">予約詳細</span>
       </center>
     </div>
     <div data-position-fixed="true" id="bookDetailMenu" data-role="panel">
       <ul data-role="listview">
-        <li data-icon="delete"><a href="javascript:void(0)" data-rel="close">閉じる</a></li>
-        <li data-icon="back"><a href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
-        <li data-icon="info"><a href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
-        <li data-icon="search"><a href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
-        <li data-icon="bullets"><a href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
-        <li data-icon="clock"><a href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
+        <li data-icon="delete"><a id="bookDetailCloseButton" href="javascript:void(0)" data-rel="close">閉じる</a></li>
+        <li data-icon="back"><a id="bookDetailBackButton" href="javascript:void(0)" onclick='history.back();'>戻る</a></li>
+        <li data-icon="info"><a id="bookDetailRemoconButton" href="javascript:void(0)" onclick='remocon();'>リモコン</a></li>
+        <li data-icon="search"><a id="bookDetailSearchButton" href="javascript:void(0)" onclick='searchForm();'>検索</a></li>
+        <li data-icon="bullets"><a id="bookDetailPlayListButton" href="javascript:void(0)" onclick='playList();'>予約状況</a></li>
+        <li data-icon="clock"><a id="bookDetailHistoryButton" href="javascript:void(0)" onclick='historyList(1);'>履歴</a></li>
         <!--<li><a href="javascript:void(0)">お気に入り</a></li>-->
-        <li data-icon="user"><a href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
+        <li data-icon="user"><a id="bookDetailLogoutButton" href="javascript:void(0)" onclick='logout();'>ログアウト</a></li>
       </ul>
     </div>
     <div data-role="content">
@@ -452,10 +452,10 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     <div data-role="footer">
       <div data-role="navbar">
         <ul>
-          <li><a data-icon="arrow-u" href="javascript:void(0)" onclick='moveUpBook();'>上に移動</a></li>
-          <li><a data-icon="delete" href="#deleteBookConfirmPage" data-rel="dialog">削除</a></li>
-          <li><a data-icon="arrow-d" href="javascript:void(0)" onclick='moveDownBook();'>下に移動</a></li>
-	</ul>
+          <li><a id="bookDetailUpButton" data-icon="arrow-u" href="javascript:void(0)" onclick='moveUpBook();'>上に移動</a></li>
+          <li><a id="bookDetailRemoveButton" data-icon="delete" href="#deleteBookConfirmPage" data-rel="dialog">削除</a></li>
+          <li><a id="bookDetailDownButton" data-icon="arrow-d" href="javascript:void(0)" onclick='moveDownBook();'>下に移動</a></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -463,13 +463,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   <div id="deleteBookConfirmPage" data-role="page">
     <div data-role="header">
       <h1>
-        確認
+        <span id="deleteBookConfirmHeader">確認</span>
       </h1>
     </div>
     <div data-role="content">
-      予約を削除します。よろしいでしょうか。
-      <a data-role="button" href="javascript:void(0)" onclick='deleteBook();'>はい</a>
-      <a data-role="button" href="/" data-rel="back">いいえ</a>
+      <span id="deleteBookConfirmMessage">予約を削除します。よろしいでしょうか。</span>
+      <a id="deleteBookConfirmYesButton" data-role="button" href="javascript:void(0)" onclick='deleteBook();'>はい</a>
+      <a id="deleteBookConfirmNoButton" data-role="button" href="/" data-rel="back">いいえ</a>
     </div>
     <div data-role="footer">
     </div>

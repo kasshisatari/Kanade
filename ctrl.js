@@ -223,7 +223,22 @@ var locale = {
     "stopConfirmYesButton": "はい",
     "stopConfirmNoButton": "いいえ",
     "breakLabel": "休憩",
-    "secretLabel": "非公開"
+    "secretLabel": "非公開",
+    "bookDetailHeader": "予約詳細",
+    "bookDetailCloseButton": "閉じる",
+    "bookDetailBackButton": "戻る",
+    "bookDetailRemoconButton": "リモコン",
+    "bookDetailSearchButton": "検索",
+    "bookDetailPlayListButton": "予約状況",
+    "bookDetailHistoryButton": "履歴",
+    "bookDetailLogoutButton": "ログアウト",
+    "bookDetailUpButton": "上に移動",
+    "bookDetailRemoveButton": "削除",
+    "bookDetailDownButton": "下に移動",
+    "deleteBookConfirmHeader": "確認",
+    "deleteBookConfirmMessage": "予約を削除します。よろしいでしょうか。",
+    "deleteBookConfirmYesButton": "はい",
+    "deleteBookConfirmNoButton": "いいえ"
   },
   "en": {
     "loginNameLabel": "Name",
@@ -406,7 +421,22 @@ var locale = {
     "stopConfirmYesButton": "Yes",
     "stopConfirmNoButton": "No",
     "breakLabel": "Break",
-    "secretLabel": "Secret"
+    "secretLabel": "Secret",
+    "bookDetailHeader": "Detail of Reservation",
+    "bookDetailCloseButton": "Close",
+    "bookDetailBackButton": "Back",
+    "bookDetailRemoconButton": "Remote",
+    "bookDetailSearchButton": "Search",
+    "bookDetailPlayListButton": "Playlist",
+    "bookDetailHistoryButton": "History",
+    "bookDetailLogoutButton": "Logout",
+    "bookDetailUpButton": "Move up",
+    "bookDetailRemoveButton": "Remove",
+    "bookDetailDownButton": "Move down",
+    "deleteBookConfirmHeader": "Confirm",
+    "deleteBookConfirmMessage": "Do you remove it from the playlist?",
+    "deleteBookConfirmYesButton": "Yes",
+    "deleteBookConfirmNoButton": "No"
   }
 };
 $(function()
