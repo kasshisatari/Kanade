@@ -2896,6 +2896,7 @@ timer_handler(
 )
 {
   GuiPlayList();
+  return TRUE;
 }
 
 void
