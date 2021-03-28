@@ -25,7 +25,7 @@
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 cp /etc/hostapd/hostapd.conf .
-cpuinfo=$(sum /proc/cpuinfo | cut -d ' ' -f1)
+cpuinfo=$(cat /proc/cpuinfo | grep -v ^BogoMIPS | sum | cut -d ' ' -f1)
 sudo ed hostapd.conf << EOF
 %s/ssid=.*/ssid=Kanade$cpuinfo/
 wq
