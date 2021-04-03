@@ -2852,7 +2852,7 @@ PlayThread(
       fileCount = GetFileCount();
       if (0 != fileCount)
       {
-        fileId = rand() % fileCount;
+        fileId = GetFileRandomId();
         GetFilePath(fileId, path);
         OpenVideo(path, 0);
         SetPlayingPath(path);

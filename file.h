@@ -89,3 +89,8 @@ unsigned long
 GetFileCount(
   void
 );
+
+unsigned long
+GetFileRandomId(
+  void
+);

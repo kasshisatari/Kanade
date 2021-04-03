@@ -42,6 +42,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define SQLPATH "SELECT PATH FROM FILE WHERE FILEID = ?;"
 #define SQLMAXID "SELECT MAX(FILEID) FROM FILE;"
 #define SQLTRANSACTION "BEGIN TRANSACTION;"
+#define SQLRANDOM "SELECT FILEID FROM FILE ORDER BY RANDOM();"
 
 static pthread_mutex_t lock;
 static sqlite3 *db = NULL;
@@ -49,6 +50,7 @@ static sqlite3_stmt *insertStmt = NULL;
 static sqlite3_stmt *detailStmt = NULL;
 static sqlite3_stmt *maxIdStmt = NULL;
 static sqlite3_stmt *pathStmt = NULL;
+static sqlite3_stmt *randomStmt = NULL;
 static unsigned long maxFileId = 0;
 
 void
@@ -376,6 +378,7 @@ OpenFile(
   sqlite3_prepare_v2(db, SQLDETAIL, -1, &detailStmt, NULL);
   sqlite3_prepare_v2(db, SQLMAXID, -1, &maxIdStmt, NULL);
   sqlite3_prepare_v2(db, SQLPATH, -1, &pathStmt, NULL);
+  sqlite3_prepare_v2(db, SQLRANDOM, -1, &randomStmt, NULL);
   ret = sqlite3_step(maxIdStmt);
   if (SQLITE_ROW == ret)
   {
@@ -397,6 +400,7 @@ CloseFile(
   sqlite3_finalize(insertStmt);
   sqlite3_finalize(detailStmt);
   sqlite3_finalize(pathStmt);
+  sqlite3_finalize(randomStmt);
   sqlite3_close(db);
 }
 
@@ -430,4 +434,46 @@ GetFileCount(
 )
 {
   return maxFileId;
+}
+
+unsigned long
+GetFileRandomId(
+  void
+)
+{
+  static unsigned long prevMaxFileId = 0;
+  static unsigned long* list = NULL;
+  static unsigned long count = 0;
+  unsigned long fileId = 0;
+  int ret = 0;
+  if (prevMaxFileId == maxFileId)
+  {
+    fileId = list[count];
+    count++;
+    if (prevMaxFileId <= count)
+    {
+      count = 0;
+    }
+    return fileId;
+  }
+  else
+  {
+    if (NULL != list)
+    {
+      free(list);
+    }
+    list = (unsigned long*)malloc(sizeof(unsigned long) * maxFileId);
+    count = 0;
+    prevMaxFileId = maxFileId;
+    ret = sqlite3_step(randomStmt);
+    while (SQLITE_ROW == ret)
+    {
+      list[count] = sqlite3_column_int(randomStmt, 0);
+      count++;
+      ret = sqlite3_step(randomStmt);
+    }
+    count = 1;
+    sqlite3_reset(randomStmt);
+    return list[0];
+  }
 }
